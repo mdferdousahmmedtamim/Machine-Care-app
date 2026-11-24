@@ -1,0 +1,2427 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Machine Care</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#102a43;
+  --blue:#176b87;
+  --teal:#087f76;
+  --bg:#f2f6f8;
+  --ink:#172b3a;
+  --line:#dce5ea;
+  --danger:#c62828;
+  --warn:#d97706;
+  --success:#10b981;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+header{
+  background:linear-gradient(130deg,#102a43,#176b87);
+  color:#fff;
+  padding:16px;
+  border-radius:0 0 20px 20px;
+  box-shadow:0 4px 12px rgba(16,42,67,0.15);
+}
+.head-row{
+  max-width:1040px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.brand-group{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.app-icon-wrap{
+  position:relative;
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  overflow:hidden;
+  background:rgba(255,255,255,0.16);
+  border:2px solid rgba(255,255,255,0.35);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.app-icon-media{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.app-icon-upload-btn{
+  background:rgba(255,255,255,0.18);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.35);
+  border-radius:8px;
+  padding:5px 9px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+.app-icon-upload-btn:hover{
+  background:rgba(255,255,255,0.28);
+}
+main{
+  max-width:1040px;
+  width:100%;
+  margin:auto;
+  padding:16px 14px 30px;
+  flex:1;
+}
+.panel{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+label{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  margin:10px 0 5px;
+  color:var(--navy);
+}
+input,select,textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid #cbd8df;
+  border-radius:8px;
+  background:#fff;
+  color:var(--ink);
+  font:inherit;
+}
+textarea{min-height:80px;resize:vertical}
+.primary{
+  background:var(--teal);
+  color:#fff;
+  border:0;
+  border-radius:8px;
+  padding:12px 16px;
+  font-weight:600;
+  cursor:pointer;
+  width:100%;
+  margin-top:12px;
+}
+.primary:hover{background:#066861}
+.primary:disabled{opacity:0.65;cursor:not-allowed}
+.secondary{
+  background:#e8f0f3;
+  color:#23475a;
+  border:0;
+  border-radius:8px;
+  padding:9px 14px;
+  font-weight:600;
+  cursor:pointer;
+}
+.secondary:hover{background:#dce7ec}
+.icon-btn{
+  background:#f1f5f9;
+  border:1px solid #cbd5e1;
+  border-radius:6px;
+  padding:5px 9px;
+  cursor:pointer;
+  font-size:13px;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  font-weight:600;
+}
+.icon-btn.edit{color:var(--warn);background:#fffbeb;border-color:#fde68a}
+.icon-btn.del{color:var(--danger);background:#fef2f2;border-color:#fecaca}
+.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.hidden{display:none!important}
+.list{display:grid;gap:14px}
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.03);
+}
+.pill{
+  display:inline-block;
+  border-radius:20px;
+  padding:4px 12px;
+  background:#eaf3f6;
+  color:#17617b;
+  font-size:12px;
+  font-weight:600;
+  margin-right:6px;
+  margin-bottom:4px;
+}
+.badge-blocked{background:#fee2e2;color:#b91c1c;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700}
+.badge-active{background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700}
+.badge-admin{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700}
+.badge-user{background:#e0f2fe;color:#0369a1;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700}
+.badge-online{background:#dcfce7;color:#15803d;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700}
+.badge-offline{background:#f1f5f9;color:#64748b;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);font-size:14px}
+th{background:#eaf3f6;color:var(--navy)}
+.tab-container{display:flex;margin-bottom:20px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.tab-btn{flex:1;padding:12px;border:none;background:#fff;font-weight:600;cursor:pointer;text-align:center}
+.tab-btn.active{background:var(--navy);color:#fff}
+.nav-pills{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:6px;align-items:center}
+.nav-pill{padding:9px 16px;border-radius:20px;background:#fff;border:1px solid var(--line);font-weight:600;cursor:pointer;white-space:nowrap}
+.nav-pill.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.nav-pill.add-opt{background:#ecfdf5;color:#087f76;border:1px dashed #087f76}
+.grid-search{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.stat-card{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.stat-num{font-size:26px;font-weight:800;color:var(--navy);margin:4px 0}
+.stat-lbl{font-size:12px;font-weight:600;color:#475569;text-transform:uppercase}
+.error-box{margin-top:10px;padding:12px;background:#fffbeb;border-left:4px solid #f59e0b;border-radius:6px}
+.bn-sol{color:#065f46;background:#ecfdf5;padding:8px 10px;border-radius:6px;margin-top:6px;display:block;font-size:15px}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;z-index:2000;padding:15px}
+.modal-box{background:#fff;border-radius:14px;padding:20px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto}
+.ai-box{background:#f0f9ff;border:1px dashed #0284c7;border-radius:10px;padding:12px;margin-bottom:12px}
+.profile-avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid var(--teal);background:#e2e8f0}
+.checkbox-row{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;font-weight:600}
+.checkbox-row input{width:auto;margin:0}
+.comment-section{margin-top:10px;padding:10px;background:#fbfbfb;border:1px solid #ddd;border-radius:6px}
+.comment-box{margin-bottom:8px;font-size:13px;padding-bottom:6px;border-bottom:1px dashed #e2e8f0}
+.admin-reply{color:#d97706;font-weight:bold}
+.sync-badge{font-size:11px;padding:3px 8px;border-radius:12px;background:rgba(255,255,255,0.18);color:#fff;font-weight:600}
+
+.messenger-layout{display:grid;grid-template-columns:270px 1fr;gap:14px;height:460px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.contact-sidebar{background:#f8fafc;border-right:1px solid var(--line);overflow-y:auto;display:flex;flex-direction:column}
+.contact-item{padding:11px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+.contact-item:hover,.contact-item.active{background:#e0f2fe}
+.status-dot{width:9px;height:9px;border-radius:50%;background:#94a3b8;display:inline-block;margin-right:6px;flex-shrink:0}
+.status-dot.online{background:var(--success)}
+.contact-info{flex:1;min-width:0}
+.contact-info strong{display:block;font-size:14px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.contact-info span{font-size:11px;color:#64748b}
+.call-btn{background:var(--success);color:#fff;padding:5px 9px;border-radius:16px;text-decoration:none;font-size:12px;font-weight:600;flex-shrink:0}
+.call-btn:hover{background:#059669}
+.chat-pane{display:flex;flex-direction:column;height:100%;min-width:0}
+.chat-header{padding:12px 16px;background:#f1f5f9;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.chat-window{flex:1;overflow-y:auto;background:#f8fafc;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg-bubble{max-width:78%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.4;position:relative;word-wrap:break-word}
+.msg-mine{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:4px}
+.msg-other{align-self:flex-start;background:#fff;color:var(--ink);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg-meta{font-size:11px;opacity:0.8;margin-bottom:4px;display:flex;justify-content:space-between;gap:10px;font-weight:600}
+.chat-input-bar{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:#fff;align-items:center}
+.dev-footer{text-align:center;padding:16px;color:#64748b;font-size:13px;font-weight:600;border-top:1px solid var(--line);background:#fff;margin-top:auto}
+
+.toast-banner{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:3000;
+  max-width:380px;
+  background:#102a43;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:10px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.22);
+  font-size:13px;
+  font-weight:600;
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+}
+.toast-banner.error{background:#991b1b;}
+.toast-banner.success{background:#065f46;}
+
+@media(max-width:768px){
+  .messenger-layout{grid-template-columns:1fr;height:auto}
+  .contact-sidebar{max-height:200px;border-right:none;border-bottom:1px solid var(--line)}
+  .chat-window{height:320px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="head-row">
+    <div class="brand-group">
+      <div id="appIconDisplay" class="app-icon-wrap" title="Machine Care App Icon">
+        <span id="appIconFallback" style="font-size:22px;">🛠️</span>
+      </div>
+      <h1 id="appNameDisplay" style="margin:0;font-size:22px">Machine Care</h1>
+      <span id="cloudSyncStatus" class="sync-badge">☁️ Ready</span>
+      <button id="editAppNameBtn" class="icon-btn edit hidden" onclick="openAppNameModal()">✏️ Edit</button>
+      <label id="appIconUploadLabel" class="app-icon-upload-btn hidden" title="Upload photo or video for App Icon">
+        🎬 Icon Media
+        <input type="file" id="appIconMediaInput" accept="image/*,video/*" class="hidden" onchange="handleAppIconMediaUpload(event)">
+      </label>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span id="userBadge" style="font-size:14px;font-weight:600;"></span>
+      <button id="signOutSessionBtn" class="secondary hidden" style="padding:7px 14px;" onclick="performLogout()">Logout</button>
+    </div>
+  </div>
+</header>
+
+<div id="toastBanner" class="toast-banner hidden">
+  <span id="toastMessage" style="flex:1;white-space:pre-line;"></span>
+  <button onclick="hideToast()" style="background:none;border:0;color:#fff;font-weight:bold;cursor:pointer;">✕</button>
+</div>
+
+<main>
+  <!-- Login Panel -->
+  <div id="authPanel" class="panel" style="max-width:440px;margin:25px auto;">
+    <div class="tab-container">
+      <button id="tabUserBtn" class="tab-btn active" onclick="switchLoginTab('user')">User Login</button>
+      <button id="tabAdminBtn" class="tab-btn" onclick="switchLoginTab('admin')">Admin Login</button>
+    </div>
+    <h2 id="authTitle" style="margin-top:0">User Login</h2>
+    <form id="authForm">
+      <label>Email Address or Phone Number</label>
+      <input type="text" id="loginIdentifier" placeholder="Enter Email or Mobile Number" required>
+      <label>Password</label>
+      <input type="password" id="loginPass" placeholder="Enter Password" required>
+      <label class="checkbox-row">
+        <input type="checkbox" id="rememberMe" checked> Remember Me (Auto Cloud Login)
+      </label>
+      <button type="submit" class="primary" id="submitBtn">Login</button>
+    </form>
+    <div id="userExtraLinks">
+      <div style="margin-top:14px;text-align:center;">
+        <a href="#" onclick="switchView('register');return false;" style="color:var(--teal);font-weight:600;">Register New Account</a>
+      </div>
+      <div style="margin-top:10px;text-align:center;border-top:1px solid var(--line);padding-top:10px;">
+        <a href="#" onclick="switchView('recovery');return false;" style="color:var(--danger);font-size:13px;">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Panel -->
+  <div id="registerPanel" class="panel hidden" style="max-width:440px;margin:25px auto;">
+    <h2 style="margin-top:0">Register New User</h2>
+    <form id="regForm">
+      <label>Full Name</label>
+      <input type="text" id="regName" placeholder="Enter your full name" required>
+      <label>Mobile Number (Unique)</label>
+      <input type="tel" id="regMobile" placeholder="01700000000" required>
+      <label>Email Address (Unique)</label>
+      <input type="email" id="regEmail" placeholder="example@gmail.com" required>
+      <label>Password (Min 6 characters)</label>
+      <input type="password" id="regPass" minlength="6" required>
+      <label>Re-enter Password</label>
+      <input type="password" id="regPassConfirm" minlength="6" required>
+      <button type="submit" class="primary" id="regSubmitBtn">Register Account</button>
+    </form>
+    <button class="secondary" style="width:100%;margin-top:10px" onclick="switchView('login')">Back to Login</button>
+  </div>
+
+  <!-- Recovery Panel -->
+  <div id="recoveryPanel" class="panel hidden" style="max-width:440px;margin:25px auto;">
+    <h2 style="color:var(--danger);margin-top:0">Password Reset</h2>
+    <p style="font-size:13px;color:#475569;">Enter your registered email address to receive a password reset link.</p>
+    <label>Registered Email Address</label>
+    <input type="email" id="recEmail" placeholder="Enter your email">
+    <button class="primary" onclick="recoverAccount()">Send Password Reset Email</button>
+    <button class="secondary" style="width:100%;margin-top:10px" onclick="switchView('login')">Back to Login</button>
+  </div>
+
+  <!-- Main App Interface -->
+  <div id="appInterface" class="hidden">
+    <div class="nav-pills" id="mainNavPills"></div>
+    <div id="adminControls" class="panel hidden" style="border-left:5px solid var(--teal)">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <strong style="color:var(--navy)">Admin Master Controls (Auto Cloud Sync Enabled)</strong>
+        <div class="actions" style="margin:0">
+          <button class="secondary" onclick="openMachineModal()">+ Add Machine</button>
+          <button class="secondary" onclick="openErrorModal()">+ Add Error Solution (AI)</button>
+          <button class="secondary" style="background:#ecfdf5;color:var(--teal);" onclick="openNewOptionModal()">➕ Add New Option / Category</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Section -->
+    <div id="errorSection">
+      <div class="panel">
+        <h3 style="margin-top:0;color:var(--navy)">Search Machine Error</h3>
+        <div class="grid-search">
+          <div>
+            <label>1. Machine Category</label>
+            <select id="catFilter" onchange="onCategoryChange()"><option value="">All Machines</option></select>
+          </div>
+          <div>
+            <label>2. Brand Name</label>
+            <select id="brandFilter" onchange="onBrandChange()"><option value="">All Brands</option></select>
+          </div>
+          <div>
+            <label>3. Model No.</label>
+            <select id="modelFilter" onchange="renderErrors()"><option value="">All Models</option></select>
+          </div>
+          <div>
+            <label>4. Error Code / Keyword</label>
+            <input type="text" id="errSearchBox" placeholder="e.g. E-01 or Motor..." oninput="renderErrors()">
+          </div>
+        </div>
+        <div class="actions">
+          <button class="primary" style="width:auto;margin-top:8px" onclick="renderErrors()">Search Errors</button>
+          <button class="secondary" style="margin-top:8px" onclick="resetErrorFilters()">Show All Errors</button>
+        </div>
+      </div>
+      <div id="errorDisplay" class="list"></div>
+    </div>
+
+    <!-- Machine Section -->
+    <div id="machineSection" class="hidden">
+      <div class="panel">
+        <h3 style="margin-top:0;color:var(--navy)">Machine Directory</h3>
+        <input type="text" id="machSearchBox" placeholder="Search by Machine Name, Short Form, Brand, or Model..." oninput="renderMachines()">
+      </div>
+      <div id="machineDisplay" class="list"></div>
+    </div>
+
+    <!-- Chat Section -->
+    <div id="chatSection" class="panel hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+        <div>
+          <h3 style="margin:0;color:var(--navy)">💬 Messenger Live Chat</h3>
+          <small style="color:#64748b">Communicate directly with Admin & Technicians or call</small>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <button class="secondary" onclick="enablePushNotifications()">🔔 Enable Notifications</button>
+          <button id="clearChatBtn" class="icon-btn del hidden" onclick="clearAllChat()">🗑️ Clear Chat</button>
+        </div>
+      </div>
+      <div class="messenger-layout">
+        <div class="contact-sidebar" id="contactSidebar"></div>
+        <div class="chat-pane">
+          <div class="chat-header" id="chatHeader"><strong>🌐 গ্রুপ চ্যাট</strong></div>
+          <div id="chatWindow" class="chat-window"></div>
+          <form id="chatForm" class="chat-input-bar" onsubmit="sendChatMessage(event)">
+            <input type="text" id="chatInput" placeholder="Type a message..." required autocomplete="off">
+            <button type="submit" class="primary" style="width:auto;margin:0;padding:10px 20px;">Send ➤</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Section -->
+    <div id="analyticsSection" class="hidden">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
+          <h3 style="margin:0;color:var(--navy)">📊 Real-Time System Analytics</h3>
+          <button class="secondary" onclick="renderAnalytics()">🔄 Refresh Stats</button>
+        </div>
+        <div class="stat-grid" id="analyticsCards"></div>
+      </div>
+      <div class="panel">
+        <h3 style="margin-top:0;color:var(--navy)">🟢 Live User Status & Session Overview</h3>
+        <table id="liveStatusTable" style="margin-top:10px;">
+          <thead><tr><th>User Name</th><th>Email / Phone</th><th>Role</th><th>Account</th><th>Live Status</th><th>Last Active</th></tr></thead>
+          <tbody id="liveStatusTableBody"></tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <h3 style="margin:0;color:var(--navy)">📋 Login History & Activity Logs</h3>
+          <button class="icon-btn del" onclick="clearLoginLogs()">Clear Logs</button>
+        </div>
+        <table style="margin-top:10px;">
+          <thead><tr><th>Name</th><th>Identifier</th><th>Role</th><th>Login Time</th><th>Session Mode</th></tr></thead>
+          <tbody id="loginLogTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- User Management Section -->
+    <div id="userSection" class="panel hidden">
+      <h3 style="margin-top:0">👥 User Management & Role Permissions</h3>
+      <p style="font-size:13px;color:#64748b;margin-top:0;">Assign <strong>Admin</strong> or <strong>General User</strong> roles and manage user access.</p>
+      <div style="overflow-x:auto;">
+        <table style="margin-top:10px;">
+          <thead><tr><th>Name</th><th>Email / Login ID</th><th>Mobile</th><th>Role / Power</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="userTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Custom Section -->
+    <div id="customSection" class="hidden">
+      <div class="panel" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <h3 id="customSectionTitle" style="margin:0;color:var(--navy)">Custom Category</h3>
+          <small id="customSectionDesc" style="color:#64748b"></small>
+        </div>
+        <div id="customSectionAdminBtns" class="actions hidden" style="margin:0;">
+          <button class="secondary" onclick="openCustomItemModal()">+ Add Item</button>
+          <button class="icon-btn edit" onclick="renameCurrentCustomSection()">✏️ Rename Category</button>
+          <button class="icon-btn del" onclick="deleteCurrentCustomSection()">🗑️ Delete Category</button>
+        </div>
+      </div>
+      <div id="customItemsDisplay" class="list"></div>
+    </div>
+
+    <!-- Profile Section -->
+    <div id="profileSection" class="panel hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
+        <h3 id="profileSectionHeading" style="margin:0;color:var(--navy)">Developer Profile</h3>
+        <button id="editDevBtn" class="icon-btn edit hidden" onclick="toggleDevEdit(true)">✏️ Edit Profile & Security</button>
+        <button id="editUserSelfBtn" class="icon-btn edit hidden" onclick="toggleUserSelfEdit(true)">✏️ Edit My Profile</button>
+      </div>
+
+      <div id="devViewMode" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+        <img id="devViewPhoto" class="profile-avatar" src="https://placehold.co/96x96/102a43/ffffff?text=DEV" onerror="this.src='https://placehold.co/96x96/102a43/ffffff?text=DEV'" alt="Developer">
+        <div>
+          <h4 id="devViewName" style="margin:0 0 6px;font-size:18px;color:var(--navy)"></h4>
+          <p style="margin:4px 0;font-size:14px;"><strong>Mobile:</strong> <span id="devViewMobile"></span></p>
+          <p style="margin:4px 0;font-size:14px;"><strong>Email:</strong> <span id="devViewEmail"></span></p>
+          <p id="devViewAdminCreds" class="hidden" style="margin:4px 0;font-size:14px;color:var(--teal);"><strong>Admin Login ID:</strong> <span id="devViewUserId"></span></p>
+        </div>
+      </div>
+
+      <form id="devEditForm" class="hidden">
+        <label>Select Local Photo File (Compressed Automatically)</label>
+        <input type="file" id="devPhotoInput" accept="image/*" onchange="previewDevPhoto(event)">
+        <label>Developer / Admin Name</label>
+        <input type="text" id="devEditName" required>
+        <label>Mobile Number (Unique)</label>
+        <input type="tel" id="devEditMobile" required>
+        <label>Email Address (Unique)</label>
+        <input type="email" id="devEditEmail" required>
+        <hr style="border:0;border-top:1px solid var(--line);margin:16px 0;">
+        <strong style="color:var(--navy);font-size:14px;">🔐 Security Settings (Optional)</strong>
+        <label>Current Password (Required if changing Email or Password)</label>
+        <input type="password" id="devCurrentPass" placeholder="Enter current password to update email/password">
+        <label>New Password (Leave blank to keep current password)</label>
+        <input type="password" id="devNewPass" minlength="6" placeholder="Min 6 characters">
+        <div class="actions">
+          <button type="submit" class="primary" style="width:auto" id="saveDevBtn">Save Profile & Credentials</button>
+          <button type="button" class="secondary" onclick="toggleDevEdit(false)">Cancel</button>
+        </div>
+      </form>
+
+      <div id="userSelfSection" class="hidden" style="margin-top:20px;border-top:1px solid var(--line);padding-top:16px;">
+        <h4 style="margin:0 0 10px;color:var(--navy)">👤 My Account Details</h4>
+        <div id="userSelfViewMode">
+          <p style="margin:4px 0;font-size:14px;"><strong>Name:</strong> <span id="uSelfViewName"></span></p>
+          <p style="margin:4px 0;font-size:14px;"><strong>Mobile:</strong> <span id="uSelfViewMobile"></span></p>
+          <p style="margin:4px 0;font-size:14px;"><strong>Email:</strong> <span id="uSelfViewEmail"></span></p>
+        </div>
+        <form id="userSelfEditForm" class="hidden">
+          <label>Full Name</label>
+          <input type="text" id="uSelfEditName" required>
+          <label>Mobile Number (Unique)</label>
+          <input type="tel" id="uSelfEditMobile" required>
+          <label>Email Address (Unique)</label>
+          <input type="email" id="uSelfEditEmail" required>
+          <hr style="border:0;border-top:1px solid var(--line);margin:16px 0;">
+          <strong style="color:var(--navy);font-size:14px;">🔐 Security Settings (Optional)</strong>
+          <label>Current Password (Required if changing Email or Password)</label>
+          <input type="password" id="uSelfCurrentPass" placeholder="Enter current password to update email/password">
+          <label>New Password (Leave blank to keep current password)</label>
+          <input type="password" id="uSelfNewPass" minlength="6" placeholder="Min 6 characters">
+          <div class="actions">
+            <button type="submit" class="primary" style="width:auto" id="saveUserSelfBtn">Update My Profile</button>
+            <button type="button" class="secondary" onclick="toggleUserSelfEdit(false)">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="dev-footer">Developed by Machine Care Team</footer>
+
+<!-- Modals -->
+<div id="appNameModal" class="modal-bg hidden">
+  <div class="modal-box">
+    <h3 style="margin-top:0">Change App Name</h3>
+    <label>New App Name</label>
+    <input type="text" id="inputNewAppName" placeholder="Enter new app title">
+    <div class="actions">
+      <button class="primary" onclick="saveAppName()">Update Name</button>
+      <button class="secondary" style="width:100%" onclick="closeModal('appNameModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="newOptionModal" class="modal-bg hidden">
+  <div class="modal-box">
+    <h3 style="margin-top:0">➕ Add New Option / Custom Category</h3>
+    <label>Category / Option Name</label>
+    <input type="text" id="newCatName" placeholder="Enter category title">
+    <label>Short Description (Optional)</label>
+    <input type="text" id="newCatDesc" placeholder="Brief purpose of this section">
+    <div class="actions">
+      <button class="primary" onclick="createCustomSection()">Create Category</button>
+      <button class="secondary" style="width:100%" onclick="closeModal('newOptionModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="customItemModal" class="modal-bg hidden">
+  <div class="modal-box">
+    <h3 id="customItemModalTitle" style="margin-top:0">Add Item</h3>
+    <input type="hidden" id="editCustomItemId">
+    <label>Item Title / Name</label>
+    <input type="text" id="cItemTitle" placeholder="e.g. Part #123">
+    <label>Tag / Reference Code (Optional)</label>
+    <input type="text" id="cItemTag" placeholder="e.g. Part-01 / Urgent">
+    <label>Details / Instructions</label>
+    <textarea id="cItemBody" placeholder="Enter full details or instructions..."></textarea>
+    <div class="actions">
+      <button class="primary" onclick="saveCustomItem()">Save Item</button>
+      <button class="secondary" style="width:100%" onclick="closeModal('customItemModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="machineModal" class="modal-bg hidden">
+  <div class="modal-box">
+    <h3 id="machModalTitle" style="margin-top:0">Add / Edit Machine</h3>
+    <input type="hidden" id="editMachId">
+    <label>Machine Name (Category)</label>
+    <input type="text" id="mCat" placeholder="e.g. Single Needle Manual">
+    <label>Short Form</label>
+    <input type="text" id="mShort" placeholder="e.g. SN">
+    <label>Brand Name</label>
+    <input type="text" id="mBrand" placeholder="e.g. Brother">
+    <label>Model Number</label>
+    <input type="text" id="mModel" placeholder="e.g. S-1110A-5">
+    <div class="actions">
+      <button class="primary" onclick="saveMachine()">Save Machine</button>
+      <button class="secondary" style="width:100%" onclick="closeModal('machineModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="errorModal" class="modal-bg hidden">
+  <div class="modal-box">
+    <h3 id="errModalTitle" style="margin-top:0">Add / Edit Error Solution</h3>
+    <input type="hidden" id="editErrId">
+    <div class="ai-box">
+      <strong style="color:#0369a1;font-size:13px;">✨ AI Manual / Image Error Extractor & Bengali Translator</strong>
+      <p style="margin:4px 0 8px;font-size:12px;color:#334155;">Upload a manual photo/text file or paste English error text to auto-extract and translate to Bengali.</p>
+      <input type="file" id="aiFileInput" accept="image/*,.txt,.csv,.json" onchange="handleAiFileUpload(event)" style="padding:6px;font-size:12px;margin-bottom:6px;">
+      <textarea id="aiRawEnglish" placeholder="Paste or extract English manual error text here..." style="min-height:60px;font-size:13px;"></textarea>
+      <button type="button" class="secondary" style="width:100%;margin-top:6px;background:#0284c7;color:#fff;" onclick="runAiExtractAndTranslate()">⚡ Extract & Translate to Bengali</button>
+    </div>
+    <label>Select Machine</label>
+    <select id="eMachineId"></select>
+    <label>Error Code / Number</label>
+    <input type="text" id="eCode" placeholder="e.g. E-01">
+    <label>Problem Description (English)</label>
+    <input type="text" id="eProblem" placeholder="e.g. Drive Motor Error">
+    <label>Solution Details (বাংলায় লিখুন বা এডিট করুন)</label>
+    <textarea id="eSolution" placeholder="সমাধানের বিস্তারিত বাংলায় লিখুন..."></textarea>
+    <label>Reference Image (Optional, Compressed)</label>
+    <input type="file" id="eImageInput" accept="image/*" onchange="handleErrorImage(event)">
+    <input type="hidden" id="eImageData">
+    <div class="actions">
+      <button class="primary" onclick="saveError()">Save Error Solution</button>
+      <button class="secondary" style="width:100%" onclick="closeModal('errorModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="userEditModal" class="modal-bg hidden">
+  <div class="modal-box">
+    <h3 style="margin-top:0">Edit User Account & Permissions</h3>
+    <input type="hidden" id="editUserOrigId">
+    <label>Full Name</label>
+    <input type="text" id="uEditName">
+    <label>Mobile Number</label>
+    <input type="tel" id="uEditMobile">
+    <label>Assigned Role / Power (ভূমিকা ও ক্ষমতা)</label>
+    <select id="uEditRole">
+      <option value="user">General User (সাধারণ ইউজার)</option>
+      <option value="admin">Admin (অ্যাডমিন ক্ষমতা)</option>
+    </select>
+    <label>Account Status</label>
+    <select id="uEditStatus">
+      <option value="active">Active</option>
+      <option value="blocked">Blocked</option>
+    </select>
+    <div class="actions">
+      <button class="primary" onclick="saveUserEdit()">Save Changes</button>
+      <button class="secondary" style="width:100%" onclick="closeModal('userEditModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-analytics.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  updateProfile,
+  updateEmail,
+  updatePassword,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import {
+  getDatabase,
+  ref,
+  set,
+  get,
+  onValue
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
+import {
+  getMessaging,
+  getToken,
+  onMessage
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-messaging.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBT3JD3ueKUfLVqvwiH642IfdlsnWaASrs",
+  authDomain: "machine-care-504e1.firebaseapp.com",
+  databaseURL: "https://machine-care-504e1-default-rtdb.firebaseio.com",
+  projectId: "machine-care-504e1",
+  storageBucket: "machine-care-504e1.firebasestorage.app",
+  messagingSenderId: "490776756743",
+  appId: "1:490776756743:web:5b48005dc14387f27b20a2",
+  measurementId: "G-QKQSNSK33T"
+};
+
+const app = initializeApp(firebaseConfig);
+try { getAnalytics(app); } catch (e) { console.warn('Analytics skipped:', e); }
+
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+let messaging = null;
+try {
+  if (typeof window !== 'undefined' && 'Notification' in window) {
+    messaging = getMessaging(app);
+  }
+} catch (err) {
+  console.warn('Firebase Messaging unavailable:', err);
+}
+
+const INITIAL_MACHINES = [
+  {id:"m1",cat:"Single Needle Manual",brand:"Brother",model:"S-1110A-5",shortName:"SN"},
+  {id:"m2",cat:"Single Needle Manual",brand:"HIKARI",model:"HIKARI",shortName:"SN"},
+  {id:"m3",cat:"Auto Single Needle",brand:"Brother",model:"S-6200A-405",shortName:"ASN"},
+  {id:"m4",cat:"Auto Single Needle",brand:"Brother",model:"S-6200DD-405",shortName:"ASN"},
+  {id:"m5",cat:"Auto Single Needle",brand:"Brother",model:"S-2110-405",shortName:"ASN"},
+  {id:"m6",cat:"Auto Single Needle",brand:"Brother",model:"S-7250A-405",shortName:"ASN"},
+  {id:"m7",cat:"Auto Single Needle",brand:"Brother",model:"S-7300-405",shortName:"ASN"},
+  {id:"m8",cat:"Auto Single Needle",brand:"Juki",model:"DDL-900A",shortName:"ASN"},
+  {id:"m9",cat:"Auto Single Needle",brand:"Juki",model:"DDL-900B",shortName:"ASN"},
+  {id:"m10",cat:"Auto Single Needle",brand:"Brother",model:"T-8420C-005",shortName:"ASN"},
+  {id:"m11",cat:"Auto Single Needle",brand:"Brother",model:"LT2-B842-3",shortName:"ASN"},
+  {id:"m12",cat:"Double Needle Manual",brand:"FEIYUE",model:"FEIYUE",shortName:"DN"},
+  {id:"m13",cat:"Double Needle Manual",brand:"SIRUBA",model:"SIRUBA",shortName:"DN"},
+  {id:"m14",cat:"Auto Double Needle",brand:"Typical",model:"GC6342H",shortName:"ADN"},
+  {id:"m15",cat:"Auto Double Needle",brand:"Brother",model:"T-8422C-403",shortName:"ADN"},
+  {id:"m16",cat:"Auto Double Needle",brand:"Brother",model:"T-8422D",shortName:"ADN"},
+  {id:"m17",cat:"Auto Double Needle",brand:"Juki",model:"LS-3528A-7",shortName:"ADN"},
+  {id:"m18",cat:"Auto Double Needle",brand:"Juki",model:"LS-3578A-7",shortName:"ADN"},
+  {id:"m19",cat:"Double Needle Chain Stitch",brand:"Zusan",model:"CM-3880-SD",shortName:"DNC"},
+  {id:"m20",cat:"Double Needle Chain Stitch",brand:"Zusan",model:"CM-380-F",shortName:"DNC"},
+  {id:"m21",cat:"Double Needle Chain Stitch",brand:"GMC",model:"GMC-3820",shortName:"DNC"},
+  {id:"m22",cat:"Double Needle Chain Stitch",brand:"SewMac",model:"SM-3802",shortName:"DNC"},
+  {id:"m23",cat:"Double Needle Chain Stitch",brand:"BOSS",model:"BS-8200-2",shortName:"DNC"},
+  {id:"m24",cat:"Vertical Single Needle",brand:"Hikari",model:"H5200A",shortName:"V/T"},
+  {id:"m25",cat:"4 Thread Overlock",brand:"Pegasus",model:"M700 Series-752",shortName:"OL4"},
+  {id:"m26",cat:"4 Thread Overlock",brand:"Pegasus",model:"M800 Series-752",shortName:"OL4"},
+  {id:"m27",cat:"4 Thread Overlock",brand:"Pegasus",model:"5214-M53",shortName:"OL4"},
+  {id:"m28",cat:"4 Thread Overlock",brand:"KANSAI",model:"KANSAI",shortName:"OL4"},
+  {id:"m29",cat:"4 Thread Overlock",brand:"Siruba",model:"514M2-24",shortName:"OL4"},
+  {id:"m30",cat:"5 Thread Overlock",brand:"Pegasus",model:"M700 Series-732",shortName:"OL5"},
+  {id:"m31",cat:"5 Thread Overlock",brand:"Pegasus",model:"EXT 3216H",shortName:"OL5"},
+  {id:"m32",cat:"5 Thread Overlock",brand:"Typical",model:"Typical",shortName:"OL5"},
+  {id:"m33",cat:"6 Thread Overlock",brand:"Jack",model:"JK-798D-5",shortName:"OL6"},
+  {id:"m34",cat:"6 Thread Overlock",brand:"Pegasus",model:"M800 Series-732",shortName:"OL6"},
+  {id:"m35",cat:"6 Thread Overlock",brand:"Pegasus",model:"MXT 3244",shortName:"OL6"},
+  {id:"m36",cat:"Feed of the Arm Havy",brand:"Brother",model:"DA9280-5 (Rol)",shortName:"F/A"},
+  {id:"m37",cat:"Feed of the Arm Havy",brand:"Brother",model:"DA9280-5 (Belt)",shortName:"F/A"},
+  {id:"m38",cat:"Feed of the Arm Havy",brand:"Brother",model:"DA928A-5 (Belt)",shortName:"F/A"},
+  {id:"m39",cat:"Feed of the Arm Havy",brand:"Juki",model:"MS1261 (Rol)",shortName:"F/A"},
+  {id:"m40",cat:"Feed of the Arm Havy",brand:"Juki",model:"MS1261 (Belt)",shortName:"F/A"},
+  {id:"m41",cat:"Flatlock Flad bed",brand:"Pegasus",model:"W1500N",shortName:"F/L.F"},
+  {id:"m42",cat:"Flatlock Silider",brand:"Pegasus",model:"W1600",shortName:"F/L.S"},
+  {id:"m43",cat:"Kansai",brand:"Kansai FXP",model:"PXP-1411",shortName:"K/S"},
+  {id:"m44",cat:"Kansai",brand:"Kansai FBX",model:"FBX-1106P",shortName:"K/S"},
+  {id:"m45",cat:"ABT Bartack",brand:"Brother",model:"KE-430D",shortName:"ABT"},
+  {id:"m46",cat:"ABT Bartack",brand:"Brother",model:"KE-430F",shortName:"ABT"},
+  {id:"m47",cat:"ABT Bartack",brand:"Brother",model:"KE-430FS",shortName:"ABT"},
+  {id:"m48",cat:"ABT Bartack",brand:"Brother",model:"KE-430HS",shortName:"ABT"},
+  {id:"m49",cat:"ABS Button Stitch",brand:"Brother",model:"KE-438D",shortName:"ABS"},
+  {id:"m50",cat:"ABS Button Stitch",brand:"Brother",model:"KE-438F",shortName:"ABS"},
+  {id:"m51",cat:"Auto Loop Attach",brand:"Juki",model:"MOL-254",shortName:"ALS"},
+  {id:"m52",cat:"Auto Pocket Welt (APW)",brand:"ASS",model:"3050",shortName:"APW"},
+  {id:"m53",cat:"Auto Pocket Welt (APW)",brand:"Juki",model:"895",shortName:"APW"},
+  {id:"m54",cat:"Eylet Hole",brand:"Juki",model:"MEB-3200J",shortName:"AEH"},
+  {id:"m55",cat:"Bottom Hemming",brand:"Kansai Special",model:"NC-1001-GJCD-UTAB",shortName:"B.HEM"},
+  {id:"m56",cat:"Button Hole",brand:"Brother",model:"HE-800A",shortName:"ABH"},
+  {id:"m57",cat:"Zig Zag",brand:"GMCY",model:"GEM-20U43",shortName:"Z.ZAG"},
+  {id:"m58",cat:"Shuttle Stitch",brand:"GMCY",model:"GEM8350-30",shortName:"S.STC"},
+  {id:"m59",cat:"Blind Stitch",brand:"Zusan",model:"CM-101",shortName:"B.STC"},
+  {id:"m60",cat:"Velco Cutting",brand:"Qutex",model:"TBC-50R",shortName:"V.CUT"},
+  {id:"m61",cat:"Pattern Sewer mc",brand:"Juki",model:"AMS-210EN",shortName:"P.SEW"},
+  {id:"m62",cat:"Pattern Sewer mc",brand:"Brother",model:"BAS-326G",shortName:"P.SEW"},
+  {id:"m63",cat:"Pattern Sewer mc",brand:"Brother",model:"BAS-326HX",shortName:"P.SEW"},
+  {id:"m64",cat:"Pattern Sewer mc",brand:"Brother",model:"BAS-311HN",shortName:"P.SEW"},
+  {id:"m65",cat:"Pattern Sewer mc",brand:"Brother",model:"BAS-300G",shortName:"P.SEW"},
+  {id:"m66",cat:"Pattern Sewer mc",brand:"Supreme",model:"SP-806AS",shortName:"P.SEW"},
+  {id:"m67",cat:"Snap Button Manual",brand:"SewMac",model:"SE-808",shortName:"S.BUT"},
+  {id:"m68",cat:"Auto Sanp Button",brand:"YKK",model:"N6-S",shortName:"S.BUT-H"},
+  {id:"m69",cat:"Auto Sanp Button Newmatic",brand:"max",model:"SQ1",shortName:"S.BUT-N"},
+  {id:"m70",cat:"Thread sarking",brand:"JMC",model:"TSO-512",shortName:"T.SAR"},
+  {id:"m71",cat:"Vacom Iron Table",brand:"Local",model:"YL-1250F",shortName:"V.CUM-T"},
+  {id:"m72",cat:"Loop Cutting MC",brand:"Fida",model:"N/A",shortName:"L.TRIM"},
+  {id:"m73",cat:"Thread Trimming",brand:"Zusan",model:"CM-180S",shortName:"TH.TRIM"},
+  {id:"m74",cat:"Heat Press",brand:"Local",model:"HPE-9291",shortName:"H.PRESS"},
+  {id:"m75",cat:"Needle Detector",brand:"Oasima",model:"ON688CD11",shortName:"N.DETEC"},
+  {id:"m76",cat:"Smoking",brand:"Kansai Special",model:"BX-1425SM",shortName:"SMOK"},
+  {id:"m77",cat:"Pintack",brand:"Kansai Special",model:"BX-1425PTV",shortName:"PINTK"},
+  {id:"m78",cat:"Plastic Stapler",brand:"Denison",model:"ST9000",shortName:"P.STP"},
+  {id:"m79",cat:"Spreading Machine",brand:"TSM",model:"NA-00",shortName:"F.SPRD"},
+  {id:"m80",cat:"CAD Machine",brand:"Winda",model:"Winda",shortName:"CAD"},
+  {id:"m81",cat:"Pattern Cutting Machine",brand:"Winda",model:"Winda",shortName:"PCM"},
+  {id:"m82",cat:"Cutting Machine",brand:"KM",model:"KS-AUV",shortName:"C.M"},
+  {id:"m83",cat:"Fusing Mc",brand:"Hasima",model:"900LFS",shortName:"FUSING"},
+  {id:"m84",cat:"Fabric Inspection",brand:"Modern",model:"FIM6-55",shortName:"F.INS"},
+  {id:"m85",cat:"Fabric Relaxation",brand:"Nagising",model:"NS-56",shortName:"F.RELX"},
+  {id:"m86",cat:"Boiler",brand:"Cocron",model:"2000 kg, 3000 kg",shortName:"BOILER"},
+  {id:"m87",cat:"Genaretor",brand:"Perkings",model:"1000 kva, 800 kva",shortName:"GEN"}
+];
+
+const INITIAL_ERRORS = [
+  {id:"e1",machineId:"m1",code:"E-01",problem:"Drive Motor Error",solution:"মোটর কানেকশন এবং ড্রাইভ বেল্ট চেক করুন।",image:"",comments:[]},
+  {id:"e2",machineId:"m3",code:"E-02",problem:"Needle Position Sensor Error",solution:"নিডেল পজিশন সেন্সর পরিষ্কার করুন এবং টাইমিং পুনরায় অ্যাডজাস্ট করুন।",image:"",comments:[]}
+];
+
+const DEFAULT_ADMIN = {
+  name: 'MD FERDOUS AHMMED TAMIM',
+  mobile: '01897599613',
+  email: 'mdferdousahmmedt@gmail.com',
+  userId: 'admin',
+  photo: '',
+  isOnline: false,
+  lastActive: null
+};
+
+const CACHE_KEY = 'mc_cloud_cache_v3';
+
+let hasCloudSnapshot = false;
+let isSyncing = false;
+let pendingSync = false;
+let toastTimer = null;
+
+let appState = {
+  appName: 'Machine Care',
+  appIconUrl: '',
+  appIconType: '',
+  currentUser: null,
+  adminProfile: Object.assign({}, DEFAULT_ADMIN),
+  users: [],
+  deletedUids: [],
+  machines: [...INITIAL_MACHINES],
+  errors: [...INITIAL_ERRORS],
+  messages: [
+    {id: 1, senderId: 'admin', senderName: 'MD FERDOUS AHMMED TAMIM', senderRole: 'admin', recipientId: 'all', recipientName: 'All Users', text: 'Welcome to Machine Care Live Chat!', time: '12:00 PM'}
+  ],
+  loginLogs: [],
+  customSections: [],
+  activeTab: 'errors',
+  activeCustomSectionId: null,
+  activeChatRecipient: 'all',
+  viewMode: 'login',
+  loginTab: 'user'
+};
+
+const $ = id => document.getElementById(id);
+
+function isUserTypingInInput() {
+  const active = document.activeElement;
+  if (!active) return false;
+  const tag = active.tagName.toLowerCase();
+  return tag === 'input' || tag === 'textarea' || tag === 'select';
+}
+
+function showToast(msg, type = 'info') {
+  const el = $('toastBanner');
+  const txt = $('toastMessage');
+  if (!el || !txt) return;
+  txt.textContent = msg;
+  el.className = `toast-banner ${type}`;
+  el.classList.remove('hidden');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.add('hidden'), 4200);
+}
+
+function hideToast() {
+  const el = $('toastBanner');
+  if (el) el.classList.add('hidden');
+}
+
+function setSyncBadge(text, color = 'rgba(255,255,255,0.18)') {
+  const el = $('cloudSyncStatus');
+  if (el) {
+    el.textContent = text;
+    el.style.background = color;
+  }
+}
+
+function normalizePhone(phone) {
+  let clean = (phone || '').replace(/[\s\-+]/g, '');
+  if (clean.startsWith('8801') && clean.length === 13) clean = '0' + clean.slice(3);
+  return clean;
+}
+
+function isPrimaryAdmin(email, mobile) {
+  const eMatch = email && email.toLowerCase() === appState.adminProfile.email.toLowerCase();
+  const mMatch = mobile && normalizePhone(mobile) === normalizePhone(appState.adminProfile.mobile);
+  return eMatch || mMatch;
+}
+
+function isEmailTaken(email, excludeUid = '') {
+  if (!email) return false;
+  const low = email.trim().toLowerCase();
+  if (appState.adminProfile.email && appState.adminProfile.email.toLowerCase() === low && excludeUid !== 'admin') {
+    return true;
+  }
+  return appState.users.some(u => u.uid !== excludeUid && u.userId !== excludeUid && u.email && u.email.toLowerCase() === low);
+}
+
+function isMobileTaken(mobile, excludeUid = '') {
+  if (!mobile) return false;
+  const norm = normalizePhone(mobile);
+  if (!norm) return false;
+  if (appState.adminProfile.mobile && normalizePhone(appState.adminProfile.mobile) === norm && excludeUid !== 'admin') {
+    return true;
+  }
+  return appState.users.some(u => u.uid !== excludeUid && u.userId !== excludeUid && u.mobile && normalizePhone(u.mobile) === norm);
+}
+
+function buildCloudPayload() {
+  return {
+    appName: appState.appName,
+    appIconUrl: appState.appIconUrl || '',
+    appIconType: appState.appIconType || '',
+    adminProfile: appState.adminProfile,
+    users: appState.users,
+    deletedUids: appState.deletedUids,
+    machines: appState.machines,
+    errors: appState.errors,
+    messages: appState.messages,
+    loginLogs: appState.loginLogs,
+    customSections: appState.customSections,
+    updatedAt: Date.now()
+  };
+}
+
+function saveLocalCache(payload) {
+  try {
+    const serialized = JSON.stringify(payload);
+    localStorage.setItem(CACHE_KEY, serialized);
+    sessionStorage.setItem(CACHE_KEY, serialized);
+  } catch (e) {
+    try { sessionStorage.setItem(CACHE_KEY, JSON.stringify(payload)); } catch (err) {}
+  }
+}
+
+function loadLocalCache() {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY) || sessionStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' ? parsed : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+async function syncRealtimeDatabase() {
+  if (isSyncing) {
+    pendingSync = true;
+    return;
+  }
+  isSyncing = true;
+  setSyncBadge('⏳ Saving...', '#d97706');
+  const payload = buildCloudPayload();
+  saveLocalCache(payload);
+  hasCloudSnapshot = true;
+
+  try {
+    await set(ref(db, 'machineCareData'), payload);
+    setSyncBadge('✅ Cloud Synced', '#059669');
+  } catch (err) {
+    console.error('Realtime DB sync error:', err);
+    setSyncBadge('⚡ Local Saved', '#0284c7');
+  } finally {
+    isSyncing = false;
+    if (pendingSync) {
+      pendingSync = false;
+      syncRealtimeDatabase();
+    }
+  }
+}
+
+function applyCloudSnapshot(val) {
+  if (!val) return;
+  hasCloudSnapshot = true;
+  if (val.appName) appState.appName = val.appName;
+  if (typeof val.appIconUrl === 'string') appState.appIconUrl = val.appIconUrl;
+  if (typeof val.appIconType === 'string') appState.appIconType = val.appIconType;
+  if (val.adminProfile) appState.adminProfile = Object.assign({}, DEFAULT_ADMIN, val.adminProfile);
+  appState.users = Array.isArray(val.users) ? val.users : (val.users ? Object.values(val.users) : []);
+  appState.deletedUids = Array.isArray(val.deletedUids) ? val.deletedUids : [];
+  if (val.machines) appState.machines = Array.isArray(val.machines) ? val.machines : Object.values(val.machines);
+  if (val.errors) appState.errors = Array.isArray(val.errors) ? val.errors : Object.values(val.errors);
+  if (val.messages) appState.messages = Array.isArray(val.messages) ? val.messages : Object.values(val.messages);
+  if (val.loginLogs) appState.loginLogs = Array.isArray(val.loginLogs) ? val.loginLogs : Object.values(val.loginLogs);
+  if (val.customSections) appState.customSections = Array.isArray(val.customSections) ? val.customSections : Object.values(val.customSections);
+  saveLocalCache(buildCloudPayload());
+}
+
+function renderActiveSectionOnly() {
+  if (!appState.currentUser) return;
+  if (appState.activeTab === 'errors') renderErrors();
+  if (appState.activeTab === 'machines') renderMachines();
+  if (appState.activeTab === 'chat') { renderContactSidebar(); renderChat(); }
+  if (appState.activeTab === 'analytics') renderAnalytics();
+  if (appState.activeTab === 'users') renderUserTable();
+  if (appState.activeTab === 'custom') renderCustomSection();
+  if (appState.activeTab === 'profile') renderDevProfile();
+}
+
+function renderAppIconDisplay() {
+  const wrap = $('appIconDisplay');
+  if (!wrap) return;
+  const url = (appState.appIconUrl || '').trim();
+  const type = appState.appIconType || '';
+
+  if (!url) {
+    wrap.innerHTML = `<span id="appIconFallback" style="font-size:22px;">🛠️</span>`;
+    return;
+  }
+
+  if (type === 'video' || /\.(mp4|webm|ogg|mov)(\?|$)/i.test(url)) {
+    wrap.innerHTML = `<video class="app-icon-media" src="${url}" autoplay muted loop playsinline></video>`;
+  } else {
+    wrap.innerHTML = `<img class="app-icon-media" src="${url}" alt="App Icon" onerror="this.onerror=null;this.src='https://placehold.co/46x46/176b87/ffffff?text=MC';">`;
+  }
+}
+
+async function compressImageToDataUrl(file, maxDimension = 320, quality = 0.6) {
+  if (!file || !file.type.startsWith('image/')) return '';
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDimension || height > maxDimension) {
+          if (width >= height) {
+            height = Math.round((height * maxDimension) / width);
+            width = maxDimension;
+          } else {
+            width = Math.round((width * maxDimension) / height);
+            height = maxDimension;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = () => resolve(ev.target.result || '');
+      img.src = ev.target.result;
+    };
+    reader.onerror = () => resolve('');
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleAppIconMediaUpload(event) {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') {
+    showToast('শুধুমাত্র অ্যাডমিন অ্যাপ আইকন পরিবর্তন করতে পারবেন।', 'error');
+    event.target.value = '';
+    return;
+  }
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  const isVideo = file.type.startsWith('video/');
+  const isImage = file.type.startsWith('image/');
+  if (!isVideo && !isImage) {
+    showToast('Please select a valid image or video file.', 'error');
+    event.target.value = '';
+    return;
+  }
+
+  if (isVideo && file.size > 1.2 * 1024 * 1024) {
+    showToast('ভিডিও সাইজ ১.২ MB এর কম রাখুন, নাহলে ডেটাবেজে সিঙ্ক হতে সমস্যা হতে পারে।', 'error');
+    event.target.value = '';
+    return;
+  }
+
+  setSyncBadge('⏳ Saving Icon...', '#d97706');
+  try {
+    let mediaUrl = '';
+    if (isImage) {
+      mediaUrl = await compressImageToDataUrl(file, 180, 0.6);
+    } else {
+      mediaUrl = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = ev => resolve(ev.target.result || '');
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(file);
+      });
+    }
+    if (!mediaUrl) throw new Error('Could not read icon file');
+    appState.appIconUrl = mediaUrl;
+    appState.appIconType = isVideo ? 'video' : 'image';
+    renderAppIconDisplay();
+    await saveAll();
+    showToast('App Icon সেভ ও সিঙ্ক হয়েছে!', 'success');
+  } catch (err) {
+    showToast('Icon save issue: ' + (err.message || 'Try a smaller file.'), 'error');
+  } finally {
+    event.target.value = '';
+  }
+}
+
+function listenRealtimeDatabase() {
+  const dataRef = ref(db, 'machineCareData');
+
+  get(dataRef).then((snap) => {
+    if (snap.exists()) {
+      applyCloudSnapshot(snap.val());
+      setSyncBadge('✅ Cloud Synced', '#059669');
+      updateUI();
+    } else if (!hasCloudSnapshot) {
+      syncRealtimeDatabase();
+    }
+  }).catch(() => {});
+
+  onValue(dataRef, (snapshot) => {
+    const val = snapshot.val();
+    if (!val) {
+      if (!hasCloudSnapshot) {
+        setSyncBadge('☁️ Initializing...', '#0284c7');
+        syncRealtimeDatabase();
+      }
+      return;
+    }
+    applyCloudSnapshot(val);
+    setSyncBadge('✅ Cloud Synced', '#059669');
+
+    if ($('appNameDisplay')) $('appNameDisplay').textContent = appState.appName;
+    document.title = appState.appName;
+    renderAppIconDisplay();
+
+    if (appState.currentUser) {
+      if (!appState.currentUser.isPrimaryAdmin) {
+        const stillExists = appState.users.some(u => u.uid === appState.currentUser.uid || u.userId === appState.currentUser.id);
+        if (!stillExists) {
+          showToast('আপনার অ্যাকাউন্টটি অ্যাডমিন ডিলিট করেছেন। পুনরায় রেজিস্ট্রেশন করুন।', 'error');
+          signOut(auth).catch(() => {});
+          appState.currentUser = null;
+          updateUI();
+          return;
+        }
+      }
+      populateCategoryDropdown();
+      if (!isUserTypingInInput()) {
+        renderActiveSectionOnly();
+      }
+    }
+  }, (err) => {
+    console.error('Realtime listener error:', err);
+    setSyncBadge('⚡ Local Cache Ready', '#0284c7');
+  });
+}
+
+async function saveAll() {
+  saveLocalCache(buildCloudPayload());
+  await syncRealtimeDatabase();
+}
+
+function init() {
+  const cached = loadLocalCache();
+  if (cached) {
+    applyCloudSnapshot(cached);
+    setSyncBadge('⚡ Restored', '#0284c7');
+  }
+
+  setupEventListeners();
+  updateUI();
+  listenRealtimeDatabase();
+
+  onAuthStateChanged(auth, (fbUser) => {
+    if (fbUser) {
+      const email = fbUser.email || '';
+      const phone = fbUser.phoneNumber || '';
+
+      if (isPrimaryAdmin(email, '')) {
+        appState.currentUser = {
+          name: appState.adminProfile.name || fbUser.displayName || 'Admin Master',
+          role: 'admin',
+          isPrimaryAdmin: true,
+          id: fbUser.uid,
+          uid: fbUser.uid,
+          email: email,
+          mobile: appState.adminProfile.mobile
+        };
+        markUserHeartbeat(appState.currentUser, true);
+        updateUI();
+        return;
+      }
+
+      const localProfile = appState.users.find(u =>
+        u.uid === fbUser.uid ||
+        (email && u.email && u.email.toLowerCase() === email.toLowerCase()) ||
+        (phone && u.mobile && normalizePhone(u.mobile) === normalizePhone(phone))
+      );
+
+      if (appState.deletedUids.includes(fbUser.uid)) {
+        fbUser.delete().catch(() => signOut(auth).catch(() => {}));
+        appState.currentUser = null;
+        showToast('এই অ্যাকাউন্টটি ডিলিট করা হয়েছে। অনুগ্রহ করে নতুন করে রেজিস্ট্রেশন করুন।', 'error');
+        switchView('register');
+        return;
+      }
+
+      if (localProfile && localProfile.status === 'blocked') {
+        showToast('Your account is blocked by Admin.', 'error');
+        signOut(auth).catch(() => {});
+        appState.currentUser = null;
+        updateUI();
+        return;
+      }
+
+      const hasAdminRole = localProfile && localProfile.role === 'admin';
+      const effectiveRole = (appState.loginTab === 'admin' && hasAdminRole) ? 'admin' : (localProfile?.role || 'user');
+      appState.currentUser = {
+        name: localProfile?.name || fbUser.displayName || email || 'User',
+        role: effectiveRole,
+        isPrimaryAdmin: false,
+        id: localProfile?.userId || fbUser.uid,
+        uid: fbUser.uid,
+        email: localProfile?.email || email,
+        mobile: localProfile?.mobile || phone
+      };
+      markUserHeartbeat(appState.currentUser, true);
+    } else {
+      appState.currentUser = null;
+    }
+    updateUI();
+  });
+
+  setInterval(() => {
+    if (appState.currentUser) {
+      markUserHeartbeat(appState.currentUser, true);
+      if (appState.activeTab === 'analytics' && !isUserTypingInInput()) renderAnalytics();
+    }
+  }, 60000);
+}
+
+function markUserHeartbeat(user, shouldSync = false) {
+  if (!user) return;
+  const now = Date.now();
+  if (user.isPrimaryAdmin) {
+    appState.adminProfile.lastActive = now;
+    appState.adminProfile.isOnline = true;
+  } else {
+    const u = appState.users.find(x => x.uid === user.uid || x.userId === user.id);
+    if (u) {
+      u.lastActive = now;
+      u.isOnline = true;
+    }
+  }
+  saveLocalCache(buildCloudPayload());
+  if (shouldSync) syncRealtimeDatabase();
+}
+
+async function recordLoginEvent(user, sessionMode) {
+  const nowStr = new Date().toLocaleString();
+  appState.loginLogs.unshift({
+    id: Date.now(),
+    name: user.name,
+    identifier: user.mobile || user.email || user.id,
+    role: user.role === 'admin' ? 'Admin' : 'General User',
+    time: nowStr,
+    mode: sessionMode
+  });
+  if (appState.loginLogs.length > 100) appState.loginLogs.pop();
+  markUserHeartbeat(user, false);
+  await saveAll();
+}
+
+async function performLogout() {
+  if (appState.currentUser) {
+    if (appState.currentUser.isPrimaryAdmin) {
+      appState.adminProfile.isOnline = false;
+    } else {
+      const u = appState.users.find(x => x.uid === appState.currentUser.uid || x.userId === appState.currentUser.id);
+      if (u) u.isOnline = false;
+    }
+    syncRealtimeDatabase();
+  }
+  try { await signOut(auth); } catch (e) {}
+  appState.currentUser = null;
+  updateUI();
+}
+
+function setupEventListeners() {
+  const authForm = $('authForm');
+  if (authForm) {
+    authForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const rawIdentifier = $('loginIdentifier').value.trim();
+      const pass = $('loginPass').value;
+      const remember = $('rememberMe').checked;
+      const btn = $('submitBtn');
+
+      const resolvedEmail = resolveLoginEmail(rawIdentifier);
+      const localUserMatch = appState.users.find(u =>
+        (u.email && u.email.toLowerCase() === resolvedEmail.toLowerCase()) ||
+        (u.mobile && normalizePhone(u.mobile) === normalizePhone(rawIdentifier))
+      );
+
+      if (!rawIdentifier.includes('@') && !isPrimaryAdmin('', rawIdentifier) && !localUserMatch) {
+        return showToast('এই মোবাইল নম্বরটি দিয়ে কোনো অ্যাকাউন্ট পাওয়া যায়নি। ইমেইল দিয়ে লগইন করুন বা রেজিস্টার করুন।', 'error');
+      }
+
+      if (appState.loginTab === 'admin') {
+        const isAllowedAdmin = isPrimaryAdmin(resolvedEmail, rawIdentifier) || (localUserMatch && localUserMatch.role === 'admin');
+        if (!isAllowedAdmin) {
+          return showToast('This Email or Phone Number does not have Admin permissions.', 'error');
+        }
+      }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Logging in...'; }
+
+      try {
+        await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
+        const userCredential = await signInWithEmailAndPassword(auth, resolvedEmail, pass);
+        const fbUser = userCredential.user;
+        const isAdmin = appState.loginTab === 'admin' || isPrimaryAdmin(resolvedEmail, rawIdentifier) || (localUserMatch && localUserMatch.role === 'admin');
+        const logUser = {
+          name: isPrimaryAdmin(resolvedEmail, rawIdentifier) ? appState.adminProfile.name : (localUserMatch?.name || fbUser.displayName || rawIdentifier),
+          role: isAdmin ? 'admin' : 'user',
+          isPrimaryAdmin: isPrimaryAdmin(resolvedEmail, rawIdentifier),
+          id: fbUser.uid,
+          uid: fbUser.uid,
+          email: resolvedEmail,
+          mobile: localUserMatch?.mobile || (rawIdentifier.includes('@') ? '' : rawIdentifier)
+        };
+        await recordLoginEvent(logUser, remember ? 'Auto Cloud Persistent' : 'Cloud Session');
+        showToast('Login successful!', 'success');
+      } catch (err) {
+        showToast(formatFirebaseError(err), 'error');
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = appState.loginTab === 'admin' ? 'Login as Admin' : 'Login'; }
+      }
+    };
+  }
+
+  const regForm = $('regForm');
+  if (regForm) {
+    regForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const name = $('regName').value.trim();
+      const mobile = $('regMobile').value.trim();
+      const rawEmail = $('regEmail').value.trim();
+      const pass = $('regPass').value;
+      const conf = $('regPassConfirm').value;
+      const btn = $('regSubmitBtn');
+
+      if (!mobile || !rawEmail) return showToast('Mobile Number এবং Email Address দুটোই বাধ্যতামূলক।', 'error');
+      if (pass !== conf) return showToast('Password মিলছে না।', 'error');
+
+      if (isEmailTaken(rawEmail)) {
+        return showToast('এই Gmail/Email ঠিকানা দিয়ে ইতিমধ্যে একটি অ্যাকাউন্ট খোলা আছে।', 'error');
+      }
+      if (isMobileTaken(mobile)) {
+        return showToast('এই মোবাইল নম্বরটি দিয়ে ইতিমধ্যে একটি অ্যাকাউন্ট খোলা আছে।', 'error');
+      }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Processing...'; }
+
+      try {
+        await setPersistence(auth, browserLocalPersistence);
+        const userCredential = await createUserWithEmailAndPassword(auth, rawEmail, pass);
+        const fbUser = userCredential.user;
+
+        try { await updateProfile(fbUser, { displayName: name }); } catch (e) {}
+
+        appState.deletedUids = appState.deletedUids.filter(id => id !== fbUser.uid);
+
+        const newUser = {
+          uid: fbUser.uid,
+          name,
+          email: rawEmail,
+          mobile,
+          userId: fbUser.uid,
+          role: 'user',
+          status: 'active',
+          isOnline: true,
+          lastActive: Date.now()
+        };
+        appState.users.push(newUser);
+        await saveAll();
+        await recordLoginEvent({ name, role: 'user', id: fbUser.uid, uid: fbUser.uid, email: rawEmail, mobile }, 'Email Registration');
+        showToast('রেজিস্ট্রেশন সফল! আপনার অ্যাপে লগইন করা হয়েছে।', 'success');
+      } catch (err) {
+        showToast(formatFirebaseError(err), 'error');
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = 'Register Account'; }
+      }
+    };
+  }
+
+  const devEditForm = $('devEditForm');
+  if (devEditForm) {
+    devEditForm.onsubmit = async (e) => {
+      e.preventDefault();
+      if (!appState.currentUser || appState.currentUser.role !== 'admin') {
+        return showToast('Permission Denied: Only Admin can edit Developer Profile.', 'error');
+      }
+
+      const name = $('devEditName').value.trim();
+      const mobile = $('devEditMobile').value.trim();
+      const email = $('devEditEmail').value.trim();
+      const currentPass = $('devCurrentPass').value;
+      const newPass = $('devNewPass').value;
+      const btn = $('saveDevBtn');
+
+      if (!email) return showToast('Email Address cannot be empty.', 'error');
+      if (isEmailTaken(email, 'admin')) return showToast('এই ইমেইলটি অন্য একজন ইউজার ব্যবহার করছেন।', 'error');
+      if (isMobileTaken(mobile, 'admin')) return showToast('এই মোবাইল নম্বরটি অন্য একজন ইউজার ব্যবহার করছেন।', 'error');
+
+      const emailChanged = email.toLowerCase() !== appState.adminProfile.email.toLowerCase();
+      const passChanged = newPass.length > 0;
+      if ((emailChanged || passChanged) && !currentPass) {
+        return showToast('Please enter your Current Password to change Email or Password.', 'error');
+      }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Updating...'; }
+      try {
+        const fbUser = auth.currentUser;
+        if (fbUser && (emailChanged || passChanged)) {
+          const credential = EmailAuthProvider.credential(fbUser.email, currentPass);
+          await reauthenticateWithCredential(fbUser, credential);
+          if (emailChanged) await updateEmail(fbUser, email);
+          if (passChanged) await updatePassword(fbUser, newPass);
+        }
+        if (fbUser && name !== fbUser.displayName) {
+          try { await updateProfile(fbUser, { displayName: name }); } catch (err) {}
+        }
+        appState.adminProfile.name = name;
+        appState.adminProfile.mobile = mobile;
+        appState.adminProfile.email = email;
+        if ($('devViewPhoto') && $('devViewPhoto').src && !$('devViewPhoto').src.includes('placehold.co')) {
+          appState.adminProfile.photo = $('devViewPhoto').src;
+        }
+        if (appState.currentUser) {
+          appState.currentUser.name = name;
+          appState.currentUser.email = email;
+          appState.currentUser.mobile = mobile;
+        }
+        await saveAll();
+        toggleDevEdit(false);
+        updateUI();
+        showToast('Developer Profile সেভ ও সিঙ্ক হয়েছে!', 'success');
+      } catch (err) {
+        showToast(formatFirebaseError(err), 'error');
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = 'Save Profile & Credentials'; }
+      }
+    };
+  }
+
+  const userSelfEditForm = $('userSelfEditForm');
+  if (userSelfEditForm) {
+    userSelfEditForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const me = appState.currentUser;
+      if (!me || me.isPrimaryAdmin) return;
+
+      const userRecord = appState.users.find(u => u.uid === me.uid || u.userId === me.id);
+      if (!userRecord) return showToast('User record not found.', 'error');
+
+      const name = $('uSelfEditName').value.trim();
+      const mobile = $('uSelfEditMobile').value.trim();
+      const email = $('uSelfEditEmail').value.trim();
+      const currentPass = $('uSelfCurrentPass').value;
+      const newPass = $('uSelfNewPass').value;
+      const btn = $('saveUserSelfBtn');
+
+      if (!name || !mobile || !email) return showToast('Name, Mobile, and Email are required.', 'error');
+      if (isEmailTaken(email, userRecord.uid)) return showToast('এই Gmail/Email ঠিকানাটি ইতিমধ্যে অন্য অ্যাকাউন্টে ব্যবহৃত হয়েছে।', 'error');
+      if (isMobileTaken(mobile, userRecord.uid)) return showToast('এই মোবাইল নম্বরটি ইতিমধ্যে অন্য অ্যাকাউন্টে ব্যবহৃত হয়েছে।', 'error');
+
+      const emailChanged = email.toLowerCase() !== (userRecord.email || '').toLowerCase();
+      const passChanged = newPass.length > 0;
+      if ((emailChanged || passChanged) && !currentPass) {
+        return showToast('ইমেইল বা পাসওয়ার্ড পরিবর্তন করতে বর্তমান পাসওয়ার্ড দিন।', 'error');
+      }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Updating...'; }
+      try {
+        const fbUser = auth.currentUser;
+        if (fbUser && (emailChanged || passChanged)) {
+          const credential = EmailAuthProvider.credential(fbUser.email, currentPass);
+          await reauthenticateWithCredential(fbUser, credential);
+          if (emailChanged) await updateEmail(fbUser, email);
+          if (passChanged) await updatePassword(fbUser, newPass);
+        }
+        if (fbUser && name !== fbUser.displayName) {
+          try { await updateProfile(fbUser, { displayName: name }); } catch (err) {}
+        }
+
+        userRecord.name = name;
+        userRecord.mobile = mobile;
+        userRecord.email = email;
+        me.name = name;
+        me.mobile = mobile;
+        me.email = email;
+
+        await saveAll();
+        toggleUserSelfEdit(false);
+        updateUI();
+        showToast('আপনার প্রোফাইল সফলভাবে আপডেট হয়েছে!', 'success');
+      } catch (err) {
+        showToast(formatFirebaseError(err), 'error');
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = 'Update My Profile'; }
+      }
+    };
+  }
+}
+
+function resolveLoginEmail(identifier) {
+  const trimmed = identifier.trim();
+  if (trimmed.includes('@')) return trimmed;
+  const cleanPhone = normalizePhone(trimmed);
+  if (cleanPhone === normalizePhone(appState.adminProfile.mobile)) return appState.adminProfile.email;
+  const foundUser = appState.users.find(u => normalizePhone(u.mobile) === cleanPhone);
+  if (foundUser && foundUser.email) return foundUser.email;
+  return trimmed;
+}
+
+function formatFirebaseError(err) {
+  switch (err.code) {
+    case 'auth/invalid-credential':
+    case 'auth/wrong-password':
+    case 'auth/user-not-found':
+      return 'Invalid Email/Phone or Password.';
+    case 'auth/email-already-in-use':
+      return 'এই Gmail/Email ঠিকানা দিয়ে ইতিমধ্যে অ্যাকাউন্ট খোলা আছে।';
+    case 'auth/weak-password':
+      return 'Password should be at least 6 characters.';
+    case 'auth/invalid-email':
+      return 'Please enter a valid email address.';
+    case 'auth/requires-recent-login':
+      return 'Please enter your current password accurately to update security settings.';
+    default:
+      return err.message || 'Authentication error occurred.';
+  }
+}
+
+function updateUI() {
+  const nameDisplay = $('appNameDisplay');
+  if (nameDisplay) nameDisplay.textContent = appState.appName;
+  document.title = appState.appName;
+  renderAppIconDisplay();
+
+  const user = appState.currentUser;
+  const authPanel = $('authPanel');
+  const registerPanel = $('registerPanel');
+  const recoveryPanel = $('recoveryPanel');
+  const appInterface = $('appInterface');
+  const logoutBtn = $('signOutSessionBtn');
+  if (!authPanel || !registerPanel || !recoveryPanel || !appInterface) return;
+
+  if (user) {
+    authPanel.classList.add('hidden');
+    registerPanel.classList.add('hidden');
+    recoveryPanel.classList.add('hidden');
+    appInterface.classList.remove('hidden');
+
+    const roleLabel = user.role === 'admin' ? 'Admin' : 'General User';
+    if ($('userBadge')) $('userBadge').textContent = `${user.name} (${roleLabel})`;
+    if (logoutBtn) logoutBtn.classList.remove('hidden');
+
+    const isAdmin = user.role === 'admin';
+    if ($('adminControls')) $('adminControls').classList.toggle('hidden', !isAdmin);
+    if ($('editDevBtn')) $('editDevBtn').classList.toggle('hidden', !isAdmin);
+    if ($('editUserSelfBtn')) $('editUserSelfBtn').classList.toggle('hidden', user.isPrimaryAdmin);
+    if ($('devViewAdminCreds')) $('devViewAdminCreds').classList.toggle('hidden', !isAdmin);
+    if ($('editAppNameBtn')) $('editAppNameBtn').classList.toggle('hidden', !isAdmin);
+    if ($('appIconUploadLabel')) $('appIconUploadLabel').classList.toggle('hidden', !isAdmin);
+    if ($('clearChatBtn')) $('clearChatBtn').classList.toggle('hidden', !isAdmin);
+
+    renderNavPills();
+    populateCategoryDropdown();
+    renderDevProfile();
+    setTab(appState.activeTab, appState.activeCustomSectionId);
+  } else {
+    appInterface.classList.add('hidden');
+    if (logoutBtn) logoutBtn.classList.add('hidden');
+    if ($('appIconUploadLabel')) $('appIconUploadLabel').classList.add('hidden');
+    if ($('editAppNameBtn')) $('editAppNameBtn').classList.add('hidden');
+    if ($('userBadge')) $('userBadge').textContent = '';
+    authPanel.classList.toggle('hidden', appState.viewMode !== 'login');
+    registerPanel.classList.toggle('hidden', appState.viewMode !== 'register');
+    recoveryPanel.classList.toggle('hidden', appState.viewMode !== 'recovery');
+  }
+}
+
+function renderNavPills() {
+  const isAdmin = appState.currentUser && appState.currentUser.role === 'admin';
+  const nav = $('mainNavPills');
+  if (!nav) return;
+  let html = `
+    <button class="nav-pill ${appState.activeTab === 'errors' ? 'active' : ''}" onclick="setTab('errors')">🔍 Error Search & Solutions</button>
+    <button class="nav-pill ${appState.activeTab === 'machines' ? 'active' : ''}" onclick="setTab('machines')">🏭 Machine List</button>
+    <button class="nav-pill ${appState.activeTab === 'chat' ? 'active' : ''}" onclick="setTab('chat')">💬 Live Chat</button>
+  `;
+  if (isAdmin) {
+    html += `
+      <button class="nav-pill ${appState.activeTab === 'analytics' ? 'active' : ''}" onclick="setTab('analytics')">📊 Analytics</button>
+      <button class="nav-pill ${appState.activeTab === 'users' ? 'active' : ''}" onclick="setTab('users')">👥 User Management</button>
+    `;
+  }
+  appState.customSections.forEach(sec => {
+    const isAct = appState.activeTab === 'custom' && appState.activeCustomSectionId === sec.id;
+    html += `<button class="nav-pill ${isAct ? 'active' : ''}" onclick="setTab('custom', '${sec.id}')">📁 ${sec.title}</button>`;
+  });
+  const profLabel = isAdmin ? '👤 Developer Profile' : '👤 Profile';
+  html += `<button class="nav-pill ${appState.activeTab === 'profile' ? 'active' : ''}" onclick="setTab('profile')">${profLabel}</button>`;
+  if (isAdmin) {
+    html += `<button class="nav-pill add-opt" onclick="openNewOptionModal()">➕ Add New Option</button>`;
+  }
+  nav.innerHTML = html;
+}
+
+function switchView(mode) { appState.viewMode = mode; updateUI(); }
+
+function switchLoginTab(tab) {
+  appState.loginTab = tab;
+  const tabUserBtn = $('tabUserBtn');
+  const tabAdminBtn = $('tabAdminBtn');
+  if (tabUserBtn) tabUserBtn.className = tab === 'user' ? 'tab-btn active' : 'tab-btn';
+  if (tabAdminBtn) tabAdminBtn.className = tab === 'admin' ? 'tab-btn active' : 'tab-btn';
+  const links = $('userExtraLinks');
+  if (links) links.classList.toggle('hidden', tab === 'admin');
+  const title = $('authTitle');
+  if (title) title.textContent = tab === 'user' ? 'User Login' : 'Admin Login';
+  const subBtn = $('submitBtn');
+  if (subBtn) subBtn.textContent = tab === 'user' ? 'Login' : 'Login as Admin';
+}
+
+function setTab(tab, customId = null) {
+  appState.activeTab = tab;
+  appState.activeCustomSectionId = customId;
+  renderNavPills();
+  ['errorSection','machineSection','chatSection','analyticsSection','userSection','customSection','profileSection'].forEach(id => {
+    if ($(id)) $(id).classList.toggle('hidden', true);
+  });
+  const map = { errors:'errorSection', machines:'machineSection', chat:'chatSection', analytics:'analyticsSection', users:'userSection', custom:'customSection', profile:'profileSection' };
+  if (map[tab] && $(map[tab])) $(map[tab]).classList.remove('hidden');
+
+  renderActiveSectionOnly();
+}
+
+function openAppNameModal() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  if ($('inputNewAppName')) $('inputNewAppName').value = appState.appName;
+  if ($('appNameModal')) $('appNameModal').classList.remove('hidden');
+}
+
+async function saveAppName() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const newName = $('inputNewAppName') ? $('inputNewAppName').value.trim() : '';
+  if (!newName) return showToast('App name cannot be empty.', 'error');
+  appState.appName = newName;
+  await saveAll();
+  closeModal('appNameModal');
+  updateUI();
+  showToast('App name updated and synced!', 'success');
+}
+
+function renderContactSidebar() {
+  const sidebar = $('contactSidebar');
+  if (!sidebar) return;
+  const me = appState.currentUser;
+  const activeId = appState.activeChatRecipient || 'all';
+  let html = `<div style="padding:11px 14px;font-weight:700;border-bottom:1px solid var(--line);color:var(--navy);">কন্টাক্ট লিস্ট</div>
+    <div class="contact-item ${activeId === 'all' ? 'active' : ''}" onclick="selectChatRecipient('all')">
+      <span class="status-dot online"></span>
+      <div class="contact-info"><strong>🌐 গ্রুপ চ্যাট</strong><span>সকলের জন্য উন্মুক্ত</span></div>
+    </div>`;
+  if (me && !me.isPrimaryAdmin) {
+    const adm = appState.adminProfile;
+    html += `<div class="contact-item ${activeId === 'admin' ? 'active' : ''}" onclick="selectChatRecipient('admin')">
+      <span class="status-dot ${adm.isOnline ? 'online' : ''}"></span>
+      <div class="contact-info"><strong>${adm.name}</strong><span>🛡️ প্রধান অ্যাডমিন</span></div>
+      ${adm.mobile ? `<a href="tel:${adm.mobile}" class="call-btn" onclick="event.stopPropagation()">📞 কল</a>` : ''}
+    </div>`;
+  }
+  appState.users.forEach(u => {
+    if (me && u.userId !== me.id) {
+      html += `<div class="contact-item ${activeId === u.userId ? 'active' : ''}" onclick="selectChatRecipient('${u.userId}')">
+        <span class="status-dot ${u.isOnline ? 'online' : ''}"></span>
+        <div class="contact-info"><strong>${u.name}</strong><span>${u.role === 'admin' ? '🛡️ অ্যাডমিন' : '👤 ইউজার'} ${u.mobile ? `(${u.mobile})` : ''}</span></div>
+        ${u.mobile ? `<a href="tel:${u.mobile}" class="call-btn" onclick="event.stopPropagation()">📞 কল</a>` : ''}
+      </div>`;
+    }
+  });
+  sidebar.innerHTML = html;
+  renderChatHeader();
+}
+
+function selectChatRecipient(recipientId) { appState.activeChatRecipient = recipientId; renderContactSidebar(); renderChat(); }
+
+function renderChatHeader() {
+  const header = $('chatHeader');
+  if (!header) return;
+  const recipientId = appState.activeChatRecipient || 'all';
+  if (recipientId === 'all') header.innerHTML = `<strong>🌐 গ্রুপ চ্যাট (All Users)</strong>`;
+  else if (recipientId === 'admin') {
+    const adm = appState.adminProfile;
+    header.innerHTML = `<strong>🛡️ ${adm.name}</strong>${adm.mobile ? `<a href="tel:${adm.mobile}" class="call-btn">📞 কল করুন (${adm.mobile})</a>` : ''}`;
+  } else {
+    const u = appState.users.find(x => x.userId === recipientId);
+    const label = u ? `${u.name} ${u.mobile ? `(${u.mobile})` : ''}` : recipientId;
+    header.innerHTML = `<strong>👤 ${label}</strong>${u && u.mobile ? `<a href="tel:${u.mobile}" class="call-btn">📞 কল করুন (${u.mobile})</a>` : ''}`;
+  }
+}
+
+function renderChat() {
+  const win = $('chatWindow');
+  if (!win) return;
+  const filterVal = appState.activeChatRecipient || 'all';
+  const me = appState.currentUser;
+  if (!me) return;
+  const isAdmin = me.role === 'admin';
+  const visibleMsgs = appState.messages.filter(m => {
+    if (filterVal === 'all') return m.recipientId === 'all';
+    if (filterVal === 'admin') return (m.senderId === me.id && m.recipientId === 'admin') || (m.senderRole === 'admin' && m.recipientId === me.id);
+    return (m.senderId === me.id && m.recipientId === filterVal) || (m.senderId === filterVal && m.recipientId === me.id) || (isAdmin && (m.senderId === filterVal || m.recipientId === filterVal));
+  });
+  if (visibleMsgs.length === 0) {
+    win.innerHTML = '<div style="text-align:center;color:#94a3b8;margin:auto;">No messages in this conversation yet.</div>';
+    return;
+  }
+  win.innerHTML = visibleMsgs.map(m => {
+    const isMine = m.senderId === me.id;
+    const targetBadge = m.recipientId === 'all' ? '🌐 Group' : `🔒 Direct to ${m.recipientName || m.recipientId}`;
+    return `<div class="msg-bubble ${isMine ? 'msg-mine' : 'msg-other'}">
+      <div class="msg-meta">
+        <span>${m.senderName} ${m.senderRole === 'admin' ? '⭐' : ''} • ${targetBadge}</span>
+        <span>${m.time} ${isAdmin ? `<a href="#" onclick="deleteChatMessage(${m.id});return false;" style="color:${isMine?'#fecaca':'#dc2626'};margin-left:5px;">✕</a>` : ''}</span>
+      </div>
+      <div>${m.text}</div>
+    </div>`;
+  }).join('');
+  win.scrollTop = win.scrollHeight;
+}
+
+async function sendChatMessage(e) {
+  e.preventDefault();
+  const input = $('chatInput');
+  if (!input || !input.value.trim()) return;
+  const msgText = input.value.trim();
+  const recipientId = appState.activeChatRecipient || 'all';
+  let recipientName = 'All Users';
+  if (recipientId === 'admin') recipientName = appState.adminProfile.name;
+  else if (recipientId !== 'all') {
+    const u = appState.users.find(x => x.userId === recipientId);
+    if (u) recipientName = u.name;
+  }
+  appState.messages.push({
+    id: Date.now(), senderId: appState.currentUser.id, senderName: appState.currentUser.name,
+    senderRole: appState.currentUser.role, recipientId, recipientName, text: msgText,
+    time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+  });
+  input.value = '';
+  await saveAll();
+  renderChat();
+
+  if (typeof Notification !== 'undefined' && Notification.permission === 'granted' && document.hidden) {
+    try {
+      new Notification(`Machine Care • ${appState.currentUser.name}`, { body: msgText });
+    } catch (err) {}
+  }
+}
+
+async function deleteChatMessage(msgId) {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  appState.messages = appState.messages.filter(m => m.id !== msgId);
+  await saveAll(); renderChat();
+}
+
+async function clearAllChat() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  appState.messages = [];
+  await saveAll();
+  renderChat();
+  showToast('All chat messages cleared.', 'success');
+}
+
+function renderAnalytics() {
+  const now = Date.now();
+  const activeThreshold = 5 * 60 * 1000;
+  const onlineUsers = appState.users.filter(u => u.isOnline && u.lastActive && (now - u.lastActive < activeThreshold));
+  const totalOnline = onlineUsers.length + (appState.adminProfile.isOnline ? 1 : 0);
+  const blockedCount = appState.users.filter(u => u.status === 'blocked').length;
+
+  if ($('analyticsCards')) {
+    $('analyticsCards').innerHTML = `
+      <div class="stat-card"><div class="stat-lbl">🟢 Active / Online Now</div><div class="stat-num" style="color:var(--teal)">${totalOnline}</div></div>
+      <div class="stat-card"><div class="stat-lbl">👥 Registered Users</div><div class="stat-num">${appState.users.length}</div></div>
+      <div class="stat-card"><div class="stat-lbl">🚫 Blocked Users</div><div class="stat-num" style="color:var(--danger)">${blockedCount}</div></div>
+      <div class="stat-card"><div class="stat-lbl">🏭 Total Machines</div><div class="stat-num">${appState.machines.length}</div></div>
+      <div class="stat-card"><div class="stat-lbl">🛠️ Error Solutions</div><div class="stat-num">${appState.errors.length}</div></div>
+      <div class="stat-card"><div class="stat-lbl">💬 Chat Messages</div><div class="stat-num">${appState.messages.length}</div></div>
+    `;
+  }
+
+  const statusRows = [
+    { name: appState.adminProfile.name + ' (Master Admin)', contact: `${appState.adminProfile.mobile} / ${appState.adminProfile.email}`, role: 'Admin', status: 'active', online: appState.adminProfile.isOnline, lastActive: appState.adminProfile.lastActive ? new Date(appState.adminProfile.lastActive).toLocaleTimeString() : 'Just now' },
+    ...appState.users.map(u => ({
+      name: u.name, contact: [u.mobile, u.email].filter(Boolean).join(' / ') || 'N/A',
+      role: u.role === 'admin' ? 'Admin' : 'General User', status: u.status || 'active',
+      online: u.isOnline && u.lastActive && (now - u.lastActive < activeThreshold),
+      lastActive: u.lastActive ? new Date(u.lastActive).toLocaleTimeString() : 'Never'
+    }))
+  ];
+
+  if ($('liveStatusTableBody')) {
+    $('liveStatusTableBody').innerHTML = statusRows.map(r => `
+      <tr>
+        <td><strong>${r.name}</strong></td><td>${r.contact}</td>
+        <td>${r.role === 'Admin' ? '<span class="badge-admin">Admin</span>' : '<span class="badge-user">User</span>'}</td>
+        <td>${r.status === 'blocked' ? '<span class="badge-blocked">Blocked</span>' : '<span class="badge-active">Active</span>'}</td>
+        <td>${r.online ? '<span class="badge-online">🟢 Online</span>' : '<span class="badge-offline">⚪ Offline</span>'}</td>
+        <td>${r.lastActive}</td>
+      </tr>
+    `).join('');
+  }
+
+  if ($('loginLogTableBody')) {
+    $('loginLogTableBody').innerHTML = appState.loginLogs.length === 0
+      ? '<tr><td colspan="5" style="text-align:center;color:#64748b;">No login history recorded yet.</td></tr>'
+      : appState.loginLogs.map(l => `<tr><td><strong>${l.name}</strong></td><td>${l.identifier}</td><td>${l.role}</td><td>${l.time}</td><td><span class="pill">${l.mode}</span></td></tr>`).join('');
+  }
+}
+
+async function clearLoginLogs() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  appState.loginLogs = [];
+  await saveAll();
+  renderAnalytics();
+  showToast('Login logs cleared.', 'success');
+}
+
+function openNewOptionModal() { if ($('newCatName')) $('newCatName').value = ''; if ($('newCatDesc')) $('newCatDesc').value = ''; if ($('newOptionModal')) $('newOptionModal').classList.remove('hidden'); }
+async function createCustomSection() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const title = $('newCatName') ? $('newCatName').value.trim() : '';
+  const desc = $('newCatDesc') ? $('newCatDesc').value.trim() : '';
+  if (!title) return showToast('Please enter a category name.', 'error');
+  const newSec = { id: 'sec_' + Date.now(), title, desc, items: [] };
+  appState.customSections.push(newSec);
+  await saveAll(); closeModal('newOptionModal'); setTab('custom', newSec.id);
+}
+
+function renderCustomSection() {
+  const sec = appState.customSections.find(s => s.id === appState.activeCustomSectionId);
+  if (!sec) return setTab('errors');
+  const isAdmin = appState.currentUser && appState.currentUser.role === 'admin';
+  if ($('customSectionTitle')) $('customSectionTitle').textContent = `📁 ${sec.title}`;
+  if ($('customSectionDesc')) $('customSectionDesc').textContent = sec.desc || 'Custom category section';
+  if ($('customSectionAdminBtns')) $('customSectionAdminBtns').classList.toggle('hidden', !isAdmin);
+  const items = Array.isArray(sec.items) ? sec.items : [];
+  if ($('customItemsDisplay')) {
+    $('customItemsDisplay').innerHTML = items.length === 0
+      ? `<div class="card">No items added to <strong>${sec.title}</strong> yet.</div>`
+      : items.map(item => `
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+            <div>
+              ${item.tag ? `<span class="pill">${item.tag}</span>` : ''}
+              <h4 style="margin:6px 0;font-size:17px;color:var(--navy)">${item.title}</h4>
+              <p style="margin:4px 0 0;font-size:14px;color:#334155;white-space:pre-line;">${item.body}</p>
+            </div>
+            ${isAdmin ? `<div style="display:flex;gap:6px;flex-shrink:0;">
+              <button class="icon-btn edit" onclick="openCustomItemModal('${item.id}')">✏️ Edit</button>
+              <button class="icon-btn del" onclick="deleteCustomItem('${item.id}')">🗑️</button>
+            </div>` : ''}
+          </div>
+        </div>
+      `).join('');
+  }
+}
+
+function openCustomItemModal(itemId = '') {
+  const sec = appState.customSections.find(s => s.id === appState.activeCustomSectionId);
+  if (!sec) return;
+  const items = Array.isArray(sec.items) ? sec.items : [];
+  const item = itemId ? items.find(i => i.id === itemId) : null;
+  if ($('customItemModalTitle')) $('customItemModalTitle').textContent = item ? `Edit Item in ${sec.title}` : `Add Item to ${sec.title}`;
+  if ($('editCustomItemId')) $('editCustomItemId').value = item ? item.id : '';
+  if ($('cItemTitle')) $('cItemTitle').value = item ? item.title : '';
+  if ($('cItemTag')) $('cItemTag').value = item ? (item.tag || '') : '';
+  if ($('cItemBody')) $('cItemBody').value = item ? item.body : '';
+  if ($('customItemModal')) $('customItemModal').classList.remove('hidden');
+}
+
+async function saveCustomItem() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const sec = appState.customSections.find(s => s.id === appState.activeCustomSectionId);
+  if (!sec) return;
+  if (!Array.isArray(sec.items)) sec.items = [];
+  const itemId = $('editCustomItemId') ? $('editCustomItemId').value : '';
+  const title = $('cItemTitle') ? $('cItemTitle').value.trim() : '';
+  const tag = $('cItemTag') ? $('cItemTag').value.trim() : '';
+  const body = $('cItemBody') ? $('cItemBody').value.trim() : '';
+  if (!title || !body) return showToast('Title and Details are required.', 'error');
+  if (itemId) {
+    const idx = sec.items.findIndex(i => i.id === itemId);
+    if (idx > -1) sec.items[idx] = {id: itemId, title, tag, body};
+  } else {
+    sec.items.unshift({id: 'ci_' + Date.now(), title, tag, body});
+  }
+  await saveAll(); closeModal('customItemModal'); renderCustomSection();
+  showToast('Saved to cloud!', 'success');
+}
+
+async function deleteCustomItem(itemId) {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const sec = appState.customSections.find(s => s.id === appState.activeCustomSectionId);
+  if (sec) {
+    sec.items = (sec.items || []).filter(i => i.id !== itemId);
+    await saveAll(); renderCustomSection();
+    showToast('Item deleted.', 'success');
+  }
+}
+
+async function renameCurrentCustomSection() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const sec = appState.customSections.find(s => s.id === appState.activeCustomSectionId);
+  if (!sec) return;
+  const newTitle = $('inputNewAppName') && $('inputNewAppName').value.trim() ? $('inputNewAppName').value.trim() : `${sec.title} (Updated)`;
+  sec.title = newTitle;
+  await saveAll();
+  renderNavPills();
+  renderCustomSection();
+  showToast('Category renamed.', 'success');
+}
+
+async function deleteCurrentCustomSection() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const sec = appState.customSections.find(s => s.id === appState.activeCustomSectionId);
+  if (sec) {
+    appState.customSections = appState.customSections.filter(s => s.id !== sec.id);
+    await saveAll();
+    setTab('errors');
+    showToast('Category deleted.', 'success');
+  }
+}
+
+function populateCategoryDropdown() {
+  const cats = [...new Set(appState.machines.map(m => m.cat))];
+  if ($('catFilter')) $('catFilter').innerHTML = '<option value="">All Machine Categories</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  onCategoryChange();
+}
+
+function onCategoryChange() {
+  const selCat = $('catFilter') ? $('catFilter').value : '';
+  const filtered = selCat ? appState.machines.filter(m => m.cat === selCat) : appState.machines;
+  const brands = [...new Set(filtered.map(m => m.brand))];
+  if ($('brandFilter')) $('brandFilter').innerHTML = '<option value="">All Brands</option>' + brands.map(b => `<option value="${b}">${b}</option>`).join('');
+  onBrandChange();
+}
+
+function onBrandChange() {
+  const selCat = $('catFilter') ? $('catFilter').value : '';
+  const selBrand = $('brandFilter') ? $('brandFilter').value : '';
+  let filtered = appState.machines;
+  if (selCat) filtered = filtered.filter(m => m.cat === selCat);
+  if (selBrand) filtered = filtered.filter(m => m.brand === selBrand);
+  const models = [...new Set(filtered.map(m => m.model))];
+  if ($('modelFilter')) $('modelFilter').innerHTML = '<option value="">All Models</option>' + models.map(mod => `<option value="${mod}">${mod}</option>`).join('');
+  renderErrors();
+}
+
+function resetErrorFilters() { if ($('catFilter')) $('catFilter').value = ''; if ($('errSearchBox')) $('errSearchBox').value = ''; onCategoryChange(); }
+
+function renderErrors() {
+  const cat = $('catFilter') ? $('catFilter').value : '';
+  const brand = $('brandFilter') ? $('brandFilter').value : '';
+  const model = $('modelFilter') ? $('modelFilter').value : '';
+  const kw = $('errSearchBox') ? $('errSearchBox').value.toLowerCase().trim() : '';
+  const isAdmin = appState.currentUser && appState.currentUser.role === 'admin';
+
+  const matchingMachineIds = appState.machines.filter(m => (!cat || m.cat === cat) && (!brand || m.brand === brand) && (!model || m.model === model)).map(m => m.id);
+  const filteredErrors = appState.errors.filter(e => {
+    if (!matchingMachineIds.includes(e.machineId)) return false;
+    const m = appState.machines.find(x => x.id === e.machineId) || {};
+    return `${e.code} ${e.problem} ${e.solution} ${m.cat} ${m.brand} ${m.model} ${m.shortName}`.toLowerCase().includes(kw);
+  });
+
+  if (!$('errorDisplay')) return;
+  if (filteredErrors.length === 0) { $('errorDisplay').innerHTML = '<div class="card">No errors found matching your search.</div>'; return; }
+
+  $('errorDisplay').innerHTML = filteredErrors.map(e => {
+    const m = appState.machines.find(x => x.id === e.machineId) || {cat:'Unknown', shortName:'', brand:'N/A', model:'N/A'};
+    const comments = (e.comments || []).filter(c => isAdmin || (appState.currentUser && c.userId === appState.currentUser.id));
+    const commentsHtml = comments.map(c => `
+      <div class="comment-box">
+        <strong>${c.userName}:</strong> ${c.text}
+        ${isAdmin ? `<button class="icon-btn edit" style="padding:2px 6px;font-size:11px;margin-left:6px;" onclick="openReplyModal('${e.id}', ${c.id})">Reply</button>` : ''}
+        ${c.reply ? `<br><span class="admin-reply">↪ Admin Reply: ${c.reply}</span>` : ''}
+      </div>
+    `).join('');
+
+    return `<div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+        <div>
+          <span class="pill">${m.cat} (${m.shortName})</span>
+          <span class="pill" style="background:#e0f2fe;color:#0369a1">Brand: ${m.brand}</span>
+          <span class="pill" style="background:#f3e8ff;color:#6b21a8">Model: ${m.model}</span>
+        </div>
+        ${isAdmin ? `<div style="display:flex;gap:6px;flex-shrink:0;">
+          <button class="icon-btn edit" onclick="openErrorModal('${e.id}')">✏️ Edit</button>
+          <button class="icon-btn del" onclick="deleteError('${e.id}')">🗑️ Delete</button>
+        </div>` : ''}
+      </div>
+      <div class="error-box">
+        <strong style="color:#b45309;font-size:16px">Error Code: ${e.code}</strong> — <strong>${e.problem}</strong>
+        <span class="bn-sol"><strong>সমাধান:</strong> ${e.solution}</span>
+        ${e.image ? `<img src="${e.image}" onerror="this.src='https://placehold.co/220x140/e2e8f0/172b3a?text=Error+Ref'" style="max-width:220px;border-radius:8px;margin-top:8px;display:block;border:1px solid #cbd5e1;">` : ''}
+      </div>
+      <div class="comment-section">
+        <strong>Private Feedback / Failed Fix Report:</strong>
+        <div style="margin-top:6px;">${commentsHtml || '<span style="color:#64748b;font-size:12px;">No feedback submitted.</span>'}</div>
+        <div style="margin-top:10px; display:flex; gap:6px;">
+          <input type="text" id="commInput_${e.id}" placeholder="Report if fix failed or ask Admin...">
+          <button class="secondary" style="margin-top:0; width:auto;" onclick="addComment('${e.id}')">Submit</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function addComment(errId) {
+  const input = $(`commInput_${errId}`);
+  if (!input || !input.value.trim()) return showToast('Enter a message.', 'error');
+  if (!appState.currentUser) return showToast('Please login first.', 'error');
+  const e = appState.errors.find(x => x.id === errId);
+  if (!e) return;
+  if (!e.comments) e.comments = [];
+  e.comments.push({ id: Date.now(), userId: appState.currentUser.id, userName: appState.currentUser.name, text: input.value.trim(), reply: '' });
+  input.value = '';
+  await saveAll(); renderErrors();
+}
+
+async function openReplyModal(errId, commentId) {
+  const e = appState.errors.find(x => x.id === errId);
+  const c = e && e.comments.find(x => x.id === commentId);
+  if (!c) return;
+  c.reply = c.reply ? `${c.reply} | Reviewed by Admin` : 'Reviewed by Admin';
+  await saveAll();
+  renderErrors();
+  showToast('Admin reply updated.', 'success');
+}
+
+function renderMachines() {
+  const kw = $('machSearchBox') ? $('machSearchBox').value.toLowerCase().trim() : '';
+  const isAdmin = appState.currentUser && appState.currentUser.role === 'admin';
+  const filtered = appState.machines.filter(m => `${m.cat} ${m.shortName} ${m.brand} ${m.model}`.toLowerCase().includes(kw));
+  if (!$('machineDisplay')) return;
+  $('machineDisplay').innerHTML = filtered.length === 0 ? '<div class="card">No machines found.</div>' : filtered.map(m => `
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+        <div>
+          <div style="font-size:17px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span>${m.cat} <span style="font-size:13px;color:var(--teal);font-weight:600">(${m.shortName})</span></span>
+            ${isAdmin ? `<button class="icon-btn edit" onclick="openMachineModal('${m.id}')">✏️ Edit</button>` : ''}
+          </div>
+          <div style="margin-top:6px;font-size:14px;color:#475569"><strong>Brand:</strong> ${m.brand} &nbsp;|&nbsp; <strong>Model:</strong> ${m.model}</div>
+        </div>
+        ${isAdmin ? `<button class="icon-btn del" onclick="deleteMachine('${m.id}')">🗑️</button>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function openMachineModal(id = '') {
+  const m = id ? appState.machines.find(x => x.id === id) : null;
+  if ($('machModalTitle')) $('machModalTitle').textContent = m ? 'Edit Machine' : 'Add New Machine';
+  if ($('editMachId')) $('editMachId').value = m ? m.id : '';
+  if ($('mCat')) $('mCat').value = m ? m.cat : '';
+  if ($('mShort')) $('mShort').value = m ? m.shortName : '';
+  if ($('mBrand')) $('mBrand').value = m ? m.brand : '';
+  if ($('mModel')) $('mModel').value = m ? m.model : '';
+  if ($('machineModal')) $('machineModal').classList.remove('hidden');
+}
+
+async function saveMachine() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const id = $('editMachId') ? $('editMachId').value : '';
+  const cat = $('mCat') ? $('mCat').value.trim() : '';
+  const shortName = $('mShort') ? $('mShort').value.trim() : '';
+  const brand = $('mBrand') ? $('mBrand').value.trim() : '';
+  const model = $('mModel') ? $('mModel').value.trim() : '';
+  if (!cat || !brand || !model) return showToast('Machine Name, Brand, and Model are required.', 'error');
+  if (id) {
+    const idx = appState.machines.findIndex(x => x.id === id);
+    if (idx > -1) appState.machines[idx] = {id, cat, shortName: shortName || 'N/A', brand, model};
+  } else {
+    appState.machines.unshift({id: 'm' + Date.now(), cat, shortName: shortName || 'N/A', brand, model});
+  }
+  await saveAll(); closeModal('machineModal'); populateCategoryDropdown(); renderMachines(); renderErrors();
+  showToast('Machine saved and synced!', 'success');
+}
+
+async function deleteMachine(id) {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  appState.machines = appState.machines.filter(m => m.id !== id);
+  await saveAll(); populateCategoryDropdown(); renderMachines(); renderErrors();
+  showToast('Machine deleted.', 'success');
+}
+
+function openErrorModal(id = '') {
+  if ($('eMachineId')) $('eMachineId').innerHTML = appState.machines.map(m => `<option value="${m.id}">${m.cat} (${m.shortName}) - ${m.brand} [${m.model}]</option>`).join('');
+  if ($('aiRawEnglish')) $('aiRawEnglish').value = '';
+  if ($('aiFileInput')) $('aiFileInput').value = '';
+  if ($('eImageInput')) $('eImageInput').value = '';
+  const e = id ? appState.errors.find(x => x.id === id) : null;
+  if ($('errModalTitle')) $('errModalTitle').textContent = e ? 'Edit Error Solution' : 'Add Error Solution (AI Assisted)';
+  if ($('editErrId')) $('editErrId').value = e ? e.id : '';
+  if ($('eMachineId') && e) $('eMachineId').value = e.machineId;
+  if ($('eCode')) $('eCode').value = e ? e.code : '';
+  if ($('eProblem')) $('eProblem').value = e ? e.problem : '';
+  if ($('eSolution')) $('eSolution').value = e ? e.solution : '';
+  if ($('eImageData')) $('eImageData').value = e ? (e.image || '') : '';
+  if ($('errorModal')) $('errorModal').classList.remove('hidden');
+}
+
+function handleAiFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.type.startsWith('text/') || file.name.endsWith('.txt') || file.name.endsWith('.csv')) {
+    const reader = new FileReader();
+    reader.onload = ev => { if ($('aiRawEnglish')) $('aiRawEnglish').value = ev.target.result; };
+    reader.readAsText(file);
+  } else if (file.type.startsWith('image/')) {
+    handleErrorImage({ target: { files: [file] } });
+    const cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " ");
+    if ($('aiRawEnglish')) $('aiRawEnglish').value = `Detected from image (${cleanName}): Error E-01 Motor overload or sensor connection failure.`;
+  }
+}
+
+function runAiExtractAndTranslate() {
+  const raw = $('aiRawEnglish') ? $('aiRawEnglish').value.trim() : '';
+  if (!raw) return showToast('Please upload a file/image or paste English error text first.', 'error');
+  const codeMatch = raw.match(/\b(E-?\d+|Err-?\d+|AL-?\d+)\b/i);
+  if ($('eCode') && !($('eCode').value)) $('eCode').value = codeMatch ? codeMatch[0].toUpperCase() : 'E-01';
+  if ($('eProblem') && !($('eProblem').value)) $('eProblem').value = raw.split(/[.:\n]/)[0].trim().substring(0, 80);
+
+  const dictionary = [
+    [/motor/gi, 'মোটর'], [/sensor/gi, 'সেন্সর'], [/needle/gi, 'নিডেল'], [/thread/gi, 'সুতা'],
+    [/trimmer/gi, 'ট্রিমার'], [/tension/gi, 'টেনশন'], [/belt/gi, 'বেল্ট'], [/cable|wiring|connection/gi, 'কেবল ও কানেকশন'],
+    [/power|voltage/gi, 'পাওয়ার সাপ্লাই ও ভোল্টেজ'], [/control box|pcb|board/gi, 'কন্ট্রোল বক্স বা সার্কিট বোর্ড'],
+    [/oil|lubrication/gi, 'অয়েল লেভেল'], [/pedal/gi, 'প্যাডেল'], [/check|inspect/gi, 'ভালোভাবে চেক করুন'],
+    [/clean/gi, 'পরিষ্কার করুন'], [/adjust|timing/gi, 'টাইমিং অ্যাডজাস্ট করুন'], [/replace/gi, 'পরিবর্তন করুন'],
+    [/reset/gi, 'রিসেট করুন'], [/error|failure|overload/gi, 'ত্রুটি দেখা দিয়েছে']
+  ];
+  let translated = raw;
+  dictionary.forEach(([regex, bn]) => { translated = translated.replace(regex, bn); });
+  if ($('eSolution')) $('eSolution').value = `সমস্যা ও সমাধান: ${translated}`;
+}
+
+async function handleErrorImage(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  setSyncBadge('⏳ Processing Image...', '#d97706');
+  try {
+    const compressedUrl = await compressImageToDataUrl(file, 260, 0.55);
+    if ($('eImageData')) $('eImageData').value = compressedUrl;
+    setSyncBadge('✅ Cloud Synced', '#059669');
+    showToast('ছবি কম্প্রেস হয়ে প্রস্তুত! Save Error Solution চাপুন।', 'success');
+  } catch (e) {
+    setSyncBadge('✅ Cloud Synced', '#059669');
+  }
+}
+
+async function saveError() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const id = $('editErrId') ? $('editErrId').value : '';
+  const machineId = $('eMachineId') ? $('eMachineId').value : '';
+  const code = $('eCode') ? $('eCode').value.trim() : '';
+  const problem = $('eProblem') ? $('eProblem').value.trim() : '';
+  const solution = $('eSolution') ? $('eSolution').value.trim() : '';
+  const image = $('eImageData') ? $('eImageData').value : '';
+  if (!machineId || !code || !problem || !solution) return showToast('Please fill in all required fields.', 'error');
+  if (id) {
+    const idx = appState.errors.findIndex(x => x.id === id);
+    if (idx > -1) {
+      appState.errors[idx] = Object.assign({}, appState.errors[idx], {
+        id, machineId, code, problem, solution, image: image || appState.errors[idx].image || '',
+        comments: appState.errors[idx].comments || []
+      });
+    }
+  } else {
+    appState.errors.unshift({id: 'e' + Date.now(), machineId, code, problem, solution, image, comments: []});
+  }
+  await saveAll();
+  closeModal('errorModal');
+  renderErrors();
+  showToast('Error solution স্থায়ীভাবে সেভ ও সিঙ্ক হয়েছে!', 'success');
+}
+
+async function deleteError(id) {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  appState.errors = appState.errors.filter(e => e.id !== id);
+  await saveAll(); renderErrors();
+  showToast('Error record deleted.', 'success');
+}
+
+function renderUserTable() {
+  if (!$('userTableBody')) return;
+  if (appState.users.length === 0) { $('userTableBody').innerHTML = '<tr><td colspan="6" style="text-align:center;color:#64748b;">No registered users yet.</td></tr>'; return; }
+  $('userTableBody').innerHTML = appState.users.map(u => `
+    <tr>
+      <td><strong>${u.name}</strong></td>
+      <td>${u.email || 'Phone Account'}</td>
+      <td>${u.mobile || 'N/A'}</td>
+      <td>${u.role === 'admin' ? '<span class="badge-admin">🛡️ Admin</span>' : '<span class="badge-user">👤 General User</span>'}</td>
+      <td>${u.status === 'blocked' ? '<span class="badge-blocked">Blocked</span>' : '<span class="badge-active">Active</span>'}</td>
+      <td>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="icon-btn edit" onclick="openUserEditModal('${u.userId}')">✏️ Role & Edit</button>
+          <button class="icon-btn" onclick="toggleBlockUser('${u.userId}')">${u.status === 'blocked' ? '🔓 Unblock' : '🚫 Block'}</button>
+          <button class="icon-btn del" onclick="deleteUser('${u.userId}')">🗑️</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function openUserEditModal(userId) {
+  const u = appState.users.find(x => x.userId === userId);
+  if (!u) return;
+  if ($('editUserOrigId')) $('editUserOrigId').value = u.userId;
+  if ($('uEditName')) $('uEditName').value = u.name;
+  if ($('uEditMobile')) $('uEditMobile').value = u.mobile || '';
+  if ($('uEditRole')) $('uEditRole').value = u.role || 'user';
+  if ($('uEditStatus')) $('uEditStatus').value = u.status || 'active';
+  if ($('userEditModal')) $('userEditModal').classList.remove('hidden');
+}
+
+async function saveUserEdit() {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const u = appState.users.find(x => x.userId === ($('editUserOrigId') ? $('editUserOrigId').value : ''));
+  if (!u) return;
+  const newMobile = $('uEditMobile') ? $('uEditMobile').value.trim() : '';
+  if (newMobile && isMobileTaken(newMobile, u.uid)) {
+    return showToast('এই মোবাইল নম্বরটি ইতিমধ্যে অন্য ইউজার ব্যবহার করছেন।', 'error');
+  }
+  if ($('uEditName')) u.name = $('uEditName').value.trim();
+  u.mobile = newMobile;
+  if ($('uEditRole')) u.role = $('uEditRole').value;
+  if ($('uEditStatus')) u.status = $('uEditStatus').value;
+  await saveAll(); closeModal('userEditModal'); renderUserTable();
+  showToast('User updated.', 'success');
+}
+
+async function toggleBlockUser(userId) {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const u = appState.users.find(x => x.userId === userId);
+  if (u) { u.status = u.status === 'blocked' ? 'active' : 'blocked'; await saveAll(); renderUserTable(); }
+}
+
+async function deleteUser(userId) {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const target = appState.users.find(u => u.userId === userId || u.uid === userId);
+  if (!target) return;
+  if (target.uid && !appState.deletedUids.includes(target.uid)) {
+    appState.deletedUids.push(target.uid);
+  }
+  appState.users = appState.users.filter(u => u.userId !== userId && u.uid !== userId);
+  await saveAll();
+  renderUserTable();
+  showToast(`"${target.name}" removed.`, 'success');
+}
+
+function renderDevProfile() {
+  const adm = appState.adminProfile;
+  const me = appState.currentUser;
+  const isAdmin = me && me.role === 'admin';
+
+  if ($('profileSectionHeading')) {
+    $('profileSectionHeading').textContent = isAdmin ? 'Developer Profile' : 'Developer Info & My Profile';
+  }
+  if ($('devViewName')) $('devViewName').textContent = adm.name;
+  if ($('devViewMobile')) $('devViewMobile').textContent = adm.mobile;
+  if ($('devViewEmail')) $('devViewEmail').textContent = adm.email;
+  if ($('devViewUserId')) $('devViewUserId').textContent = `${adm.email} বা ${adm.mobile}`;
+  if (adm.photo && $('devViewPhoto')) $('devViewPhoto').src = adm.photo;
+
+  if (!isAdmin) {
+    if ($('devEditForm')) $('devEditForm').classList.add('hidden');
+    if ($('devViewMode')) $('devViewMode').classList.remove('hidden');
+    if ($('editDevBtn')) $('editDevBtn').classList.add('hidden');
+  }
+
+  const showUserSelf = me && !me.isPrimaryAdmin;
+  if ($('userSelfSection')) $('userSelfSection').classList.toggle('hidden', !showUserSelf);
+  if ($('editUserSelfBtn')) $('editUserSelfBtn').classList.toggle('hidden', !showUserSelf);
+  if (showUserSelf) {
+    const uRec = appState.users.find(u => u.uid === me.uid || u.userId === me.id) || me;
+    if ($('uSelfViewName')) $('uSelfViewName').textContent = uRec.name || '';
+    if ($('uSelfViewMobile')) $('uSelfViewMobile').textContent = uRec.mobile || 'N/A';
+    if ($('uSelfViewEmail')) $('uSelfViewEmail').textContent = uRec.email || 'N/A';
+  }
+}
+
+function toggleDevEdit(showEdit) {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const adm = appState.adminProfile;
+  if ($('devViewMode')) $('devViewMode').classList.toggle('hidden', showEdit);
+  if ($('devEditForm')) $('devEditForm').classList.toggle('hidden', !showEdit);
+  if (showEdit) {
+    if ($('devEditName')) $('devEditName').value = adm.name;
+    if ($('devEditMobile')) $('devEditMobile').value = adm.mobile;
+    if ($('devEditEmail')) $('devEditEmail').value = adm.email;
+    if ($('devPhotoInput')) $('devPhotoInput').value = '';
+    if ($('devCurrentPass')) $('devCurrentPass').value = '';
+    if ($('devNewPass')) $('devNewPass').value = '';
+  }
+}
+
+function toggleUserSelfEdit(showEdit) {
+  const me = appState.currentUser;
+  if (!me || me.isPrimaryAdmin) return;
+  const uRec = appState.users.find(u => u.uid === me.uid || u.userId === me.id) || me;
+  if ($('userSelfViewMode')) $('userSelfViewMode').classList.toggle('hidden', showEdit);
+  if ($('userSelfEditForm')) $('userSelfEditForm').classList.toggle('hidden', !showEdit);
+  if (showEdit) {
+    if ($('uSelfEditName')) $('uSelfEditName').value = uRec.name || '';
+    if ($('uSelfEditMobile')) $('uSelfEditMobile').value = uRec.mobile || '';
+    if ($('uSelfEditEmail')) $('uSelfEditEmail').value = uRec.email || '';
+    if ($('uSelfCurrentPass')) $('uSelfCurrentPass').value = '';
+    if ($('uSelfNewPass')) $('uSelfNewPass').value = '';
+  }
+}
+
+async function previewDevPhoto(event) {
+  if (!appState.currentUser || appState.currentUser.role !== 'admin') return;
+  const file = event.target.files[0];
+  if (!file) return;
+  setSyncBadge('⏳ Saving Photo...', '#d97706');
+  try {
+    const url = await compressImageToDataUrl(file, 180, 0.6);
+    if (!url) throw new Error('Photo read failed');
+    appState.adminProfile.photo = url;
+    if ($('devViewPhoto')) $('devViewPhoto').src = url;
+    await saveAll();
+    showToast('Developer photo কম্প্রেস হয়ে সেভ ও সিঙ্ক হয়েছে!', 'success');
+  } catch (e) {
+    setSyncBadge('✅ Cloud Synced', '#059669');
+    showToast('Photo error: ' + (e.message || 'Try another photo.'), 'error');
+  }
+}
+
+async function recoverAccount() {
+  const email = $('recEmail') ? $('recEmail').value.trim() : '';
+  if (!email) return showToast('Please enter your registered email address.', 'error');
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showToast('Password reset email sent! Check your inbox.', 'success');
+    switchView('login');
+  } catch (err) { showToast(formatFirebaseError(err), 'error'); }
+}
+
+function closeModal(modalId) { if ($(modalId)) $(modalId).classList.add('hidden'); }
+
+async function enablePushNotifications() {
+  if (typeof Notification === 'undefined') {
+    return showToast('এই ব্রাউজারে নোটিফিকেশন সমর্থিত নয়।', 'error');
+  }
+  try {
+    const perm = await Notification.requestPermission();
+    if (perm !== 'granted') {
+      return showToast('নোটিফিকেশন পারমিশন দেওয়া হয়নি।', 'error');
+    }
+    if (messaging) {
+      try {
+        await getToken(messaging);
+      } catch (tokErr) {
+        console.warn('FCM getToken skipped:', tokErr);
+      }
+    }
+    showToast('নোটিফিকেশন চালু করা হয়েছে!', 'success');
+  } catch (err) {
+    showToast('নোটিফিকেশন চালু করতে সমস্যা হয়েছে।', 'error');
+  }
+}
+
+function setupSafeNotifications() {
+  if (!messaging) return;
+  try {
+    onMessage(messaging, (payload) => {
+      const title = payload?.notification?.title || 'নতুন মেসেজ';
+      const body = payload?.notification?.body || '';
+      showToast(`🔔 ${title}${body ? ': ' + body : ''}`, 'info');
+      if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+        try { new Notification(title, { body }); } catch (e) {}
+      }
+    });
+  } catch (err) {
+    console.warn('Foreground message listener skipped:', err);
+  }
+}
+
+Object.assign(window, {
+  openAppNameModal, saveAppName, switchLoginTab, switchView, recoverAccount,
+  openMachineModal, saveMachine, deleteMachine, openErrorModal, saveError, deleteError,
+  openNewOptionModal, createCustomSection, onCategoryChange, onBrandChange, renderErrors,
+  resetErrorFilters, renderMachines, clearAllChat, sendChatMessage, deleteChatMessage,
+  selectChatRecipient, renderAnalytics, clearLoginLogs, openCustomItemModal, saveCustomItem,
+  deleteCustomItem, renameCurrentCustomSection, deleteCurrentCustomSection, toggleDevEdit,
+  toggleUserSelfEdit, previewDevPhoto, closeModal, handleAiFileUpload,
+  runAiExtractAndTranslate, handleErrorImage, openUserEditModal, saveUserEdit, toggleBlockUser,
+  deleteUser, addComment, openReplyModal, setTab, performLogout, handleAppIconMediaUpload,
+  hideToast, enablePushNotifications
+});
+
+init();
+setupSafeNotifications();
+</script>
+</body>
+</html>
