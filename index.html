@@ -1,229 +1,328 @@
-<!doctype html>
-<html lang="bn">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Machine Care</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy:#102a43;
-  --blue:#176b87;
-  --teal:#087f76;
-  --bg:#f2f6f8;
+  --teal:#0f766e;
+  --blue:#0284c7;
+  --danger:#dc2626;
+  --bg:#f1f5f9;
+  --card:#ffffff;
   --ink:#172b3a;
-  --line:#dce5ea;
-  --danger:#c62828;
-  --warn:#d97706;
-  --success:#10b981;
+  --line:#cbd5e1;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;}
 body{
   margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   background:var(--bg);
   color:var(--ink);
-  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  min-height:100vh;
   display:flex;
   flex-direction:column;
-  min-height:100vh;
 }
+.hidden{display:none !important;}
 header{
-  background:linear-gradient(130deg,#102a43,#176b87);
+  background:var(--navy);
   color:#fff;
-  padding:16px;
-  border-radius:0 0 20px 20px;
-  box-shadow:0 4px 12px rgba(16,42,67,0.15);
+  padding:12px 18px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.12);
 }
 .head-row{
-  max-width:1040px;
-  margin:auto;
+  max-width:1180px;
+  margin:0 auto;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.brand-group{
-  display:flex;
-  align-items:center;
-  gap:10px;
+  gap:12px;
   flex-wrap:wrap;
 }
+.brand-group{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .app-icon-wrap{
-  position:relative;
   width:46px;
   height:46px;
-  border-radius:12px;
-  overflow:hidden;
-  background:rgba(255,255,255,0.16);
-  border:2px solid rgba(255,255,255,0.35);
+  border-radius:10px;
+  background:rgba(255,255,255,0.12);
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-shrink:0;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.2);
 }
-.app-icon-media{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+.app-icon-media{width:100%;height:100%;object-fit:cover;}
+.sync-badge{
+  font-size:12px;
+  padding:4px 9px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.18);
+  font-weight:600;
 }
 .app-icon-upload-btn{
-  background:rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.16);
   color:#fff;
-  border:1px solid rgba(255,255,255,0.35);
+  padding:6px 10px;
   border-radius:8px;
-  padding:5px 9px;
   font-size:12px;
   font-weight:600;
   cursor:pointer;
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-}
-.app-icon-upload-btn:hover{
-  background:rgba(255,255,255,0.28);
 }
 main{
-  max-width:1040px;
-  width:100%;
-  margin:auto;
-  padding:16px 14px 30px;
   flex:1;
+  width:100%;
+  max-width:1180px;
+  margin:0 auto;
+  padding:18px;
 }
-.panel{
-  background:#fff;
+.panel,.card{
+  background:var(--card);
   border:1px solid var(--line);
-  border-radius:14px;
-  padding:20px;
+  border-radius:12px;
+  padding:18px;
   margin-bottom:16px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.05);
+  box-shadow:0 2px 6px rgba(15,23,42,0.04);
 }
 label{
   display:block;
   font-size:13px;
   font-weight:600;
-  margin:10px 0 5px;
+  margin-top:10px;
+  margin-bottom:4px;
   color:var(--navy);
+}
+.label-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  margin-bottom:4px;
+}
+.label-row label{margin:0;}
+.voice-mini-group{display:flex;gap:6px;flex-wrap:wrap;}
+.voice-btn{
+  padding:4px 9px;
+  border:1px solid #93c5fd;
+  border-radius:999px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+.voice-btn.bn{
+  border-color:#99f6e4;
+  background:#f0fdfa;
+  color:#0f766e;
+}
+.voice-btn.listening{
+  background:#dc2626;
+  color:#fff;
+  border-color:#dc2626;
+}
+.speak-btn{
+  padding:5px 11px;
+  border:1px solid #99f6e4;
+  border-radius:999px;
+  background:#ecfdf5;
+  color:#0f766e;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+.speak-btn.stop{
+  background:#fef2f2;
+  color:#dc2626;
+  border-color:#fecaca;
 }
 input,select,textarea{
   width:100%;
-  padding:10px;
-  border:1px solid #cbd8df;
+  padding:10px 12px;
+  border:1px solid var(--line);
   border-radius:8px;
+  font-size:14px;
+  font-family:inherit;
   background:#fff;
-  color:var(--ink);
-  font:inherit;
 }
-textarea{min-height:80px;resize:vertical}
-.primary{
-  background:var(--teal);
-  color:#fff;
-  border:0;
-  border-radius:8px;
-  padding:12px 16px;
-  font-weight:600;
-  cursor:pointer;
-  width:100%;
+textarea{min-height:86px;resize:vertical;}
+.checkbox-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:500;
   margin-top:12px;
 }
-.primary:hover{background:#066861}
-.primary:disabled{opacity:0.65;cursor:not-allowed}
-.secondary{
-  background:#e8f0f3;
-  color:#23475a;
+.checkbox-row input{width:auto;margin:0;}
+button.primary{
+  width:100%;
+  margin-top:14px;
+  padding:11px 16px;
   border:0;
   border-radius:8px;
+  background:var(--teal);
+  color:#fff;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+}
+button.primary:hover{opacity:0.93;}
+button.secondary{
   padding:9px 14px;
-  font-weight:600;
-  cursor:pointer;
-}
-.secondary:hover{background:#dce7ec}
-.icon-btn{
-  background:#f1f5f9;
-  border:1px solid #cbd5e1;
-  border-radius:6px;
-  padding:5px 9px;
-  cursor:pointer;
-  font-size:13px;
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  font-weight:600;
-}
-.icon-btn.edit{color:var(--warn);background:#fffbeb;border-color:#fde68a}
-.icon-btn.del{color:var(--danger);background:#fef2f2;border-color:#fecaca}
-.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.hidden{display:none!important}
-.list{display:grid;gap:14px}
-.card{
-  background:#fff;
   border:1px solid var(--line);
-  border-radius:12px;
-  padding:16px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.03);
+  border-radius:8px;
+  background:#f8fafc;
+  color:var(--navy);
+  font-weight:600;
+  font-size:13px;
+  cursor:pointer;
 }
-.pill{
-  display:inline-block;
-  border-radius:20px;
-  padding:4px 12px;
-  background:#eaf3f6;
-  color:#17617b;
+.icon-btn{
+  padding:6px 10px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  background:#fff;
+  color:var(--ink);
   font-size:12px;
   font-weight:600;
-  margin-right:6px;
-  margin-bottom:4px;
+  cursor:pointer;
 }
-.badge-blocked{background:#fee2e2;color:#b91c1c;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700}
-.badge-active{background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700}
-.badge-admin{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700}
-.badge-user{background:#e0f2fe;color:#0369a1;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700}
-.badge-online{background:#dcfce7;color:#15803d;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700}
-.badge-offline{background:#f1f5f9;color:#64748b;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700}
-table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);font-size:14px}
-th{background:#eaf3f6;color:var(--navy)}
-.tab-container{display:flex;margin-bottom:20px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
-.tab-btn{flex:1;padding:12px;border:none;background:#fff;font-weight:600;cursor:pointer;text-align:center}
-.tab-btn.active{background:var(--navy);color:#fff}
-.nav-pills{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:6px;align-items:center}
-.nav-pill{padding:9px 16px;border-radius:20px;background:#fff;border:1px solid var(--line);font-weight:600;cursor:pointer;white-space:nowrap}
-.nav-pill.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-.nav-pill.add-opt{background:#ecfdf5;color:#087f76;border:1px dashed #087f76}
-.grid-search{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
-.stat-card{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
-.stat-num{font-size:26px;font-weight:800;color:var(--navy);margin:4px 0}
-.stat-lbl{font-size:12px;font-weight:600;color:#475569;text-transform:uppercase}
-.error-box{margin-top:10px;padding:12px;background:#fffbeb;border-left:4px solid #f59e0b;border-radius:6px}
-.bn-sol{color:#065f46;background:#ecfdf5;padding:8px 10px;border-radius:6px;margin-top:6px;display:block;font-size:15px}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;z-index:2000;padding:15px}
-.modal-box{background:#fff;border-radius:14px;padding:20px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto}
-.ai-box{background:#f0f9ff;border:1px dashed #0284c7;border-radius:10px;padding:12px;margin-bottom:12px}
-.profile-avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid var(--teal);background:#e2e8f0}
-.checkbox-row{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;font-weight:600}
-.checkbox-row input{width:auto;margin:0}
-.comment-section{margin-top:10px;padding:10px;background:#fbfbfb;border:1px solid #ddd;border-radius:6px}
-.comment-box{margin-bottom:8px;font-size:13px;padding-bottom:6px;border-bottom:1px dashed #e2e8f0}
-.admin-reply{color:#d97706;font-weight:bold}
-.sync-badge{font-size:11px;padding:3px 8px;border-radius:12px;background:rgba(255,255,255,0.18);color:#fff;font-weight:600}
-
-.messenger-layout{display:grid;grid-template-columns:270px 1fr;gap:14px;height:460px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
-.contact-sidebar{background:#f8fafc;border-right:1px solid var(--line);overflow-y:auto;display:flex;flex-direction:column}
-.contact-item{padding:11px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
-.contact-item:hover,.contact-item.active{background:#e0f2fe}
-.status-dot{width:9px;height:9px;border-radius:50%;background:#94a3b8;display:inline-block;margin-right:6px;flex-shrink:0}
-.status-dot.online{background:var(--success)}
-.contact-info{flex:1;min-width:0}
-.contact-info strong{display:block;font-size:14px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.contact-info span{font-size:11px;color:#64748b}
-.call-btn{background:var(--success);color:#fff;padding:5px 9px;border-radius:16px;text-decoration:none;font-size:12px;font-weight:600;flex-shrink:0}
-.call-btn:hover{background:#059669}
-.chat-pane{display:flex;flex-direction:column;height:100%;min-width:0}
-.chat-header{padding:12px 16px;background:#f1f5f9;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.chat-window{flex:1;overflow-y:auto;background:#f8fafc;padding:14px;display:flex;flex-direction:column;gap:10px}
-.msg-bubble{max-width:78%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.4;position:relative;word-wrap:break-word}
+.icon-btn.edit{color:var(--blue);border-color:#bae6fd;background:#f0f9ff;}
+.icon-btn.del{color:var(--danger);border-color:#fecaca;background:#fef2f2;}
+.tab-container{display:flex;gap:8px;margin-bottom:16px;}
+.tab-btn{
+  flex:1;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#f8fafc;
+  font-weight:700;
+  cursor:pointer;
+}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.nav-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.nav-pill{
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--navy);
+  font-weight:600;
+  font-size:13px;
+  cursor:pointer;
+}
+.nav-pill.active{background:var(--teal);color:#fff;border-color:var(--teal);}
+.nav-pill.add-opt{background:#ecfdf5;color:var(--teal);border-color:#a7f3d0;}
+.grid-search{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;
+}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.list{display:grid;gap:12px;}
+.pill{
+  display:inline-block;
+  font-size:12px;
+  font-weight:600;
+  padding:3px 9px;
+  border-radius:999px;
+  background:#e2e8f0;
+  color:var(--navy);
+  margin-right:4px;
+}
+.error-box{
+  margin-top:12px;
+  padding:12px;
+  border-radius:8px;
+  background:#fffbeb;
+  border:1px solid #fde68a;
+}
+.bn-sol{display:block;margin-top:6px;color:#1e293b;white-space:pre-line;}
+.comment-section{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:13px;}
+.comment-box{background:#f8fafc;padding:8px 10px;border-radius:8px;margin-top:6px;border:1px solid #e2e8f0;}
+.admin-reply{color:var(--teal);font-weight:600;}
+.modal-bg{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,0.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  z-index:2000;
+}
+.modal-box{
+  width:100%;
+  max-width:540px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:#fff;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 16px 40px rgba(0,0,0,0.25);
+}
+.ai-box{
+  background:#f0f9ff;
+  border:1px solid #bae6fd;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:12px;
+}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;}
+th{background:#f8fafc;color:var(--navy);font-weight:700;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+.stat-card{border:1px solid var(--line);border-radius:10px;padding:14px;background:#f8fafc;}
+.stat-lbl{font-size:12px;color:#64748b;font-weight:600;}
+.stat-num{font-size:24px;font-weight:800;margin-top:4px;color:var(--navy);}
+.badge-admin{background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:999px;font-weight:700;font-size:11px;}
+.badge-user{background:#f1f5f9;color:#334155;padding:2px 8px;border-radius:999px;font-weight:700;font-size:11px;}
+.badge-active{background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:999px;font-weight:700;font-size:11px;}
+.badge-blocked{background:#fee2e2;color:#b91c1c;padding:2px 8px;border-radius:999px;font-weight:700;font-size:11px;}
+.badge-online{color:#15803d;font-weight:700;}
+.badge-offline{color:#64748b;font-weight:600;}
+.profile-avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid var(--line);}
+.messenger-layout{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  height:420px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  background:#fff;
+}
+.contact-sidebar{border-right:1px solid var(--line);overflow-y:auto;background:#f8fafc;}
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-bottom:1px solid #e2e8f0;
+  cursor:pointer;
+}
+.contact-item.active{background:#e0f2fe;}
+.contact-info{flex:1;min-width:0;}
+.contact-info strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.contact-info span{display:block;font-size:11px;color:#64748b;}
+.status-dot{width:9px;height:9px;border-radius:50%;background:#94a3b8;flex-shrink:0;}
+.status-dot.online{background:#16a34a;}
+.call-btn{
+  text-decoration:none;
+  font-size:11px;
+  font-weight:700;
+  background:#ecfdf5;
+  color:var(--teal);
+  padding:4px 8px;
+  border-radius:6px;
+  border:1px solid #a7f3d0;
+}
+.chat-pane{display:flex;flex-direction:column;height:100%;min-height:0;}
+.chat-header{padding:10px 14px;border-bottom:1px solid var(--line);background:#f8fafc;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
+.chat-window{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;background:#f1f5f9;}
+.msg-bubble{max-width:78%;padding:9px 12px;border-radius:12px;font-size:13px;}
 .msg-mine{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:4px}
 .msg-other{align-self:flex-start;background:#fff;color:var(--ink);border:1px solid var(--line);border-bottom-left-radius:4px}
 .msg-meta{font-size:11px;opacity:0.8;margin-bottom:4px;display:flex;justify-content:space-between;gap:10px;font-weight:600}
@@ -346,10 +445,10 @@ th{background:#eaf3f6;color:var(--navy)}
     <div class="nav-pills" id="mainNavPills"></div>
     <div id="adminControls" class="panel hidden" style="border-left:5px solid var(--teal)">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-        <strong style="color:var(--navy)">Admin Master Controls (Auto Cloud Sync Enabled)</strong>
+        <strong style="color:var(--navy)">Admin Master Controls (Auto Cloud Sync + Offline AI + Voice Enabled)</strong>
         <div class="actions" style="margin:0">
           <button class="secondary" onclick="openMachineModal()">+ Add Machine</button>
-          <button class="secondary" onclick="openErrorModal()">+ Add Error Solution (AI)</button>
+          <button class="secondary" onclick="openErrorModal()">+ Add Error Solution (AI & Voice)</button>
           <button class="secondary" style="background:#ecfdf5;color:var(--teal);" onclick="openNewOptionModal()">➕ Add New Option / Category</button>
         </div>
       </div>
@@ -380,6 +479,7 @@ th{background:#eaf3f6;color:var(--navy)}
         <div class="actions">
           <button class="primary" style="width:auto;margin-top:8px" onclick="renderErrors()">Search Errors</button>
           <button class="secondary" style="margin-top:8px" onclick="resetErrorFilters()">Show All Errors</button>
+          <button class="secondary" style="margin-top:8px" onclick="stopBanglaVoice()">⏹️ Stop Voice</button>
         </div>
       </div>
       <div id="errorDisplay" class="list"></div>
@@ -613,20 +713,61 @@ th{background:#eaf3f6;color:var(--navy)}
     <h3 id="errModalTitle" style="margin-top:0">Add / Edit Error Solution</h3>
     <input type="hidden" id="editErrId">
     <div class="ai-box">
-      <strong style="color:#0369a1;font-size:13px;">✨ AI Manual / Image Error Extractor & Bengali Translator</strong>
-      <p style="margin:4px 0 8px;font-size:12px;color:#334155;">Upload a manual photo/text file or paste English error text to auto-extract and translate to Bengali.</p>
+      <strong style="color:#0369a1;font-size:13px;">✨ Offline AI Manual / Error List Scanner (No API Key Needed)</strong>
+      <p style="margin:4px 0 8px;font-size:12px;color:#334155;">ম্যানুয়াল বা এরর লিস্টের ছবি দিন এবং যে কোডটি খুঁজছেন (যেমন: <strong>E-50</strong> বা <strong>E050</strong>) তা লিখুন বা মুখে বলুন। স্ক্যানের ছবি সেভ হবে না; ইংরেজি ও বাংলা বক্সে অটোমেটিক বসে যাবে।</p>
+      <div class="label-row">
+        <label for="aiTargetCode">Target Error Code (যেমন: E-50)</label>
+        <div class="voice-mini-group">
+          <button type="button" class="voice-btn bn" onclick="startVoiceInput('aiTargetCode', 'bn-BD', this)">🎙️ বাংলা ভয়েস</button>
+          <button type="button" class="voice-btn" onclick="startVoiceInput('aiTargetCode', 'en-US', this)">🎙️ Eng Voice</button>
+        </div>
+      </div>
+      <input type="text" id="aiTargetCode" placeholder="e.g. E-50 (খালি রাখলে Error Code বক্সের কোড নেবে)" style="padding:8px;font-size:13px;margin-bottom:6px;">
+      <label style="margin-top:4px;">Manual / Error List Photo (শুধু স্ক্যানের জন্য — সেভ হবে না)</label>
       <input type="file" id="aiFileInput" accept="image/*,.txt,.csv,.json" onchange="handleAiFileUpload(event)" style="padding:6px;font-size:12px;margin-bottom:6px;">
-      <textarea id="aiRawEnglish" placeholder="Paste or extract English manual error text here..." style="min-height:60px;font-size:13px;"></textarea>
-      <button type="button" class="secondary" style="width:100%;margin-top:6px;background:#0284c7;color:#fff;" onclick="runAiExtractAndTranslate()">⚡ Extract & Translate to Bengali</button>
+      <div class="label-row">
+        <label for="aiRawEnglish">Manual Text / Voice Note (Optional)</label>
+        <div class="voice-mini-group">
+          <button type="button" class="voice-btn bn" onclick="startVoiceInput('aiRawEnglish', 'bn-BD', this)">🎙️ বাংলা ভয়েস</button>
+          <button type="button" class="voice-btn" onclick="startVoiceInput('aiRawEnglish', 'en-US', this)">🎙️ Eng Voice</button>
+        </div>
+      </div>
+      <textarea id="aiRawEnglish" placeholder="Optional: Paste English manual text or speak using voice..." style="min-height:54px;font-size:13px;"></textarea>
+      <button type="button" id="aiExtractBtn" class="secondary" style="width:100%;margin-top:6px;background:#0284c7;color:#fff;" onclick="runAiExtractAndTranslate()">⚡ Extract & Translate to Bengali</button>
+      <div id="aiScanStatus" style="margin-top:6px;font-size:12px;font-weight:600;color:#0369a1;"></div>
     </div>
+
     <label>Select Machine</label>
     <select id="eMachineId"></select>
-    <label>Error Code / Number</label>
-    <input type="text" id="eCode" placeholder="e.g. E-01">
-    <label>Problem Description (English)</label>
+
+    <div class="label-row">
+      <label for="eCode">Error Code / Number</label>
+      <div class="voice-mini-group">
+        <button type="button" class="voice-btn bn" onclick="startVoiceInput('eCode', 'bn-BD', this)">🎙️ বাংলা ভয়েস</button>
+        <button type="button" class="voice-btn" onclick="startVoiceInput('eCode', 'en-US', this)">🎙️ Eng Voice</button>
+      </div>
+    </div>
+    <input type="text" id="eCode" placeholder="e.g. E-01 or E-50">
+
+    <div class="label-row">
+      <label for="eProblem">Problem Description (English)</label>
+      <div class="voice-mini-group">
+        <button type="button" class="voice-btn" onclick="startVoiceInput('eProblem', 'en-US', this)">🎙️ Eng Voice</button>
+        <button type="button" class="voice-btn bn" onclick="startVoiceInput('eProblem', 'bn-BD', this)">🎙️ বাংলা ভয়েস</button>
+      </div>
+    </div>
     <input type="text" id="eProblem" placeholder="e.g. Drive Motor Error">
-    <label>Solution Details (বাংলায় লিখুন বা এডিট করুন)</label>
-    <textarea id="eSolution" placeholder="সমাধানের বিস্তারিত বাংলায় লিখুন..."></textarea>
+
+    <div class="label-row">
+      <label for="eSolution">Solution Details (বাংলায় লিখুন বা মুখে বলুন)</label>
+      <div class="voice-mini-group">
+        <button type="button" class="voice-btn bn" onclick="startVoiceInput('eSolution', 'bn-BD', this)">🎙️ বাংলা ভয়েস</button>
+        <button type="button" class="voice-btn" onclick="startVoiceInput('eSolution', 'en-US', this)">🎙️ Eng Voice</button>
+        <button type="button" class="voice-btn bn" onclick="speakTextInBangla($('eSolution')?.value || '')">🔊 শুনুন</button>
+      </div>
+    </div>
+    <textarea id="eSolution" placeholder="সমাধানের বিস্তারিত বাংলায় লিখুন বা ভয়েস বাটন চেপে বলুন..."></textarea>
+
     <label>Reference Image (Optional, Compressed)</label>
     <input type="file" id="eImageInput" accept="image/*" onchange="handleErrorImage(event)">
     <input type="hidden" id="eImageData">
@@ -831,6 +972,7 @@ let hasCloudSnapshot = false;
 let isSyncing = false;
 let pendingSync = false;
 let toastTimer = null;
+let activeRecognition = null;
 
 let appState = {
   appName: 'Machine Care',
@@ -855,6 +997,93 @@ let appState = {
 };
 
 const $ = id => document.getElementById(id);
+
+function speakTextInBangla(text) {
+  const clean = String(text || '').trim();
+  if (!clean) {
+    return showToast('শোনানোর মতো কোনো বাংলা লেখা পাওয়া যায়নি।', 'error');
+  }
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+    return showToast('এই ডিভাইস বা ব্রাউজারে বাংলা ভয়েস স্পিচ সাপোর্ট করছে না।', 'error');
+  }
+  try {
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(clean);
+    const voices = window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
+    const bnVoice = voices.find(v => /bn/i.test(v.lang || ''));
+    if (bnVoice) {
+      utter.voice = bnVoice;
+    }
+    utter.lang = bnVoice?.lang || 'bn-BD';
+    utter.rate = 0.95;
+    utter.pitch = 1;
+    utter.onstart = () => showToast('🔊 বাংলা ভয়েস চালু হয়েছে...', 'info');
+    utter.onerror = () => showToast('বাংলা ভয়েস চালাতে সমস্যা হয়েছে। ডিভাইসের TTS সেটিংসে Bangla voice চেক করুন।', 'error');
+    window.speechSynthesis.speak(utter);
+  } catch (err) {
+    showToast('ভয়েস প্লে করতে সমস্যা হয়েছে।', 'error');
+  }
+}
+
+function stopBanglaVoice() {
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    try { window.speechSynthesis.cancel(); } catch (e) {}
+  }
+  showToast('⏹️ ভয়েস বন্ধ করা হয়েছে।', 'info');
+}
+
+function startVoiceInput(targetInputId, langCode = 'bn-BD', btnEl = null) {
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRec) {
+    return showToast('এই ব্রাউজারে মাইক্রোফোন ভয়েস টাইপিং সাপোর্ট করছে না। Chrome ব্যবহার করুন।', 'error');
+  }
+  const targetEl = $(targetInputId);
+  if (!targetEl) return;
+
+  if (activeRecognition) {
+    try { activeRecognition.stop(); } catch (e) {}
+    activeRecognition = null;
+  }
+
+  document.querySelectorAll('.voice-btn.listening').forEach(b => b.classList.remove('listening'));
+
+  const recognition = new SpeechRec();
+  activeRecognition = recognition;
+  recognition.lang = langCode;
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  if (btnEl) btnEl.classList.add('listening');
+  showToast(langCode.startsWith('bn') ? '🎙️ বাংলায় বলুন...' : '🎙️ Speak in English...', 'info');
+
+  recognition.onresult = (event) => {
+    const transcript = event?.results?.[0]?.[0]?.transcript || '';
+    if (transcript) {
+      const currentVal = targetEl.value || '';
+      const separator = currentVal && !currentVal.endsWith(' ') && !currentVal.endsWith('\n') ? ' ' : '';
+      targetEl.value = currentVal + separator + transcript.trim();
+      targetEl.dispatchEvent(new Event('input', { bubbles: true }));
+      showToast('✅ ভয়েস থেকে লেখা বসে গেছে!', 'success');
+    }
+  };
+
+  recognition.onerror = (event) => {
+    const reason = event?.error || 'mic error';
+    showToast(`ভয়েস শুনতে সমস্যা হয়েছে (${reason})। মাইক্রোফোন পারমিশন চেক করুন।`, 'error');
+  };
+
+  recognition.onend = () => {
+    if (btnEl) btnEl.classList.remove('listening');
+    if (activeRecognition === recognition) activeRecognition = null;
+  };
+
+  try {
+    recognition.start();
+  } catch (err) {
+    if (btnEl) btnEl.classList.remove('listening');
+    showToast('মাইক্রোফোন চালু করা যায়নি।', 'error');
+  }
+}
 
 function isUserTypingInInput() {
   const active = document.activeElement;
@@ -1172,6 +1401,10 @@ function init() {
     setSyncBadge('⚡ Restored', '#0284c7');
   }
 
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    try { window.speechSynthesis.getVoices(); } catch (e) {}
+  }
+
   setupEventListeners();
   updateUI();
   listenRealtimeDatabase();
@@ -1277,6 +1510,7 @@ async function recordLoginEvent(user, sessionMode) {
 }
 
 async function performLogout() {
+  stopBanglaVoice();
   if (appState.currentUser) {
     if (appState.currentUser.isPrimaryAdmin) {
       appState.adminProfile.isOnline = false;
@@ -1301,20 +1535,32 @@ function setupEventListeners() {
       const remember = $('rememberMe').checked;
       const btn = $('submitBtn');
 
-      const resolvedEmail = resolveLoginEmail(rawIdentifier);
+      if (!rawIdentifier || !pass) {
+        return showToast('দয়া করে Email/Mobile Number এবং Password দিন।', 'error');
+      }
+
+      const isEmail = rawIdentifier.includes('@');
+      const cleanPhone = normalizePhone(rawIdentifier);
       const localUserMatch = appState.users.find(u =>
-        (u.email && u.email.toLowerCase() === resolvedEmail.toLowerCase()) ||
-        (u.mobile && normalizePhone(u.mobile) === normalizePhone(rawIdentifier))
+        (isEmail && u.email && u.email.toLowerCase() === rawIdentifier.toLowerCase()) ||
+        (!isEmail && u.mobile && normalizePhone(u.mobile) === cleanPhone)
       );
 
-      if (!rawIdentifier.includes('@') && !isPrimaryAdmin('', rawIdentifier) && !localUserMatch) {
-        return showToast('এই মোবাইল নম্বরটি দিয়ে কোনো অ্যাকাউন্ট পাওয়া যায়নি। ইমেইল দিয়ে লগইন করুন বা রেজিস্টার করুন।', 'error');
+      let resolvedEmail = '';
+      if (isEmail) {
+        resolvedEmail = rawIdentifier;
+      } else if (cleanPhone === normalizePhone(appState.adminProfile.mobile)) {
+        resolvedEmail = appState.adminProfile.email;
+      } else if (localUserMatch && localUserMatch.email) {
+        resolvedEmail = localUserMatch.email;
+      } else {
+        return showToast('এই মোবাইল নম্বরটি দিয়ে কোনো রেজিস্টার্ড অ্যাকাউন্ট পাওয়া যায়নি। ইমেইল দিয়ে লগইন করুন বা রেজিস্টার করুন।', 'error');
       }
 
       if (appState.loginTab === 'admin') {
         const isAllowedAdmin = isPrimaryAdmin(resolvedEmail, rawIdentifier) || (localUserMatch && localUserMatch.role === 'admin');
         if (!isAllowedAdmin) {
-          return showToast('This Email or Phone Number does not have Admin permissions.', 'error');
+          return showToast('এই Email বা Phone Number-এ Admin অনুমতি নেই।', 'error');
         }
       }
 
@@ -1332,10 +1578,10 @@ function setupEventListeners() {
           id: fbUser.uid,
           uid: fbUser.uid,
           email: resolvedEmail,
-          mobile: localUserMatch?.mobile || (rawIdentifier.includes('@') ? '' : rawIdentifier)
+          mobile: localUserMatch?.mobile || (!isEmail ? rawIdentifier : '')
         };
         await recordLoginEvent(logUser, remember ? 'Auto Cloud Persistent' : 'Cloud Session');
-        showToast('Login successful!', 'success');
+        showToast('লগইন সফল হয়েছে!', 'success');
       } catch (err) {
         showToast(formatFirebaseError(err), 'error');
       } finally {
@@ -1517,16 +1763,6 @@ function setupEventListeners() {
       }
     };
   }
-}
-
-function resolveLoginEmail(identifier) {
-  const trimmed = identifier.trim();
-  if (trimmed.includes('@')) return trimmed;
-  const cleanPhone = normalizePhone(trimmed);
-  if (cleanPhone === normalizePhone(appState.adminProfile.mobile)) return appState.adminProfile.email;
-  const foundUser = appState.users.find(u => normalizePhone(u.mobile) === cleanPhone);
-  if (foundUser && foundUser.email) return foundUser.email;
-  return trimmed;
 }
 
 function formatFirebaseError(err) {
@@ -2006,17 +2242,23 @@ function renderErrors() {
       </div>
     `).join('');
 
+    const spokenText = `${m.cat} ${m.brand} ${m.model}, এরর কোড ${e.code}, সমস্যা ${e.problem}, সমাধান: ${e.solution}`;
+
     return `<div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:10px;flex-wrap:wrap;">
         <div>
           <span class="pill">${m.cat} (${m.shortName})</span>
           <span class="pill" style="background:#e0f2fe;color:#0369a1">Brand: ${m.brand}</span>
           <span class="pill" style="background:#f3e8ff;color:#6b21a8">Model: ${m.model}</span>
         </div>
-        ${isAdmin ? `<div style="display:flex;gap:6px;flex-shrink:0;">
-          <button class="icon-btn edit" onclick="openErrorModal('${e.id}')">✏️ Edit</button>
-          <button class="icon-btn del" onclick="deleteError('${e.id}')">🗑️ Delete</button>
-        </div>` : ''}
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+          <button type="button" class="speak-btn" onclick="speakTextInBangla(decodeURIComponent('${encodeURIComponent(spokenText)}'))">🔊 বাংলা ভয়েস শুনুন</button>
+          <button type="button" class="speak-btn stop" onclick="stopBanglaVoice()">⏹️</button>
+          ${isAdmin ? `
+            <button class="icon-btn edit" onclick="openErrorModal('${e.id}')">✏️ Edit</button>
+            <button class="icon-btn del" onclick="deleteError('${e.id}')">🗑️ Delete</button>
+          ` : ''}
+        </div>
       </div>
       <div class="error-box">
         <strong style="color:#b45309;font-size:16px">Error Code: ${e.code}</strong> — <strong>${e.problem}</strong>
@@ -2116,11 +2358,13 @@ async function deleteMachine(id) {
 
 function openErrorModal(id = '') {
   if ($('eMachineId')) $('eMachineId').innerHTML = appState.machines.map(m => `<option value="${m.id}">${m.cat} (${m.shortName}) - ${m.brand} [${m.model}]</option>`).join('');
+  if ($('aiTargetCode')) $('aiTargetCode').value = '';
   if ($('aiRawEnglish')) $('aiRawEnglish').value = '';
   if ($('aiFileInput')) $('aiFileInput').value = '';
+  if ($('aiScanStatus')) $('aiScanStatus').textContent = '';
   if ($('eImageInput')) $('eImageInput').value = '';
   const e = id ? appState.errors.find(x => x.id === id) : null;
-  if ($('errModalTitle')) $('errModalTitle').textContent = e ? 'Edit Error Solution' : 'Add Error Solution (AI Assisted)';
+  if ($('errModalTitle')) $('errModalTitle').textContent = e ? 'Edit Error Solution' : 'Add Error Solution (AI & Voice Assisted)';
   if ($('editErrId')) $('editErrId').value = e ? e.id : '';
   if ($('eMachineId') && e) $('eMachineId').value = e.machineId;
   if ($('eCode')) $('eCode').value = e ? e.code : '';
@@ -2131,37 +2375,199 @@ function openErrorModal(id = '') {
 }
 
 function handleAiFileUpload(event) {
-  const file = event.target.files[0];
+  const file = event.target.files && event.target.files[0];
   if (!file) return;
-  if (file.type.startsWith('text/') || file.name.endsWith('.txt') || file.name.endsWith('.csv')) {
+  if (file.type.startsWith('text/') || file.name.endsWith('.txt') || file.name.endsWith('.csv') || file.name.endsWith('.json')) {
     const reader = new FileReader();
-    reader.onload = ev => { if ($('aiRawEnglish')) $('aiRawEnglish').value = ev.target.result; };
+    reader.onload = ev => {
+      if ($('aiRawEnglish')) $('aiRawEnglish').value = ev.target.result || '';
+    };
     reader.readAsText(file);
+    if ($('aiScanStatus')) $('aiScanStatus').textContent = 'টেক্সট ফাইল লোড হয়েছে। এবার "Extract & Translate to Bengali" চাপুন।';
   } else if (file.type.startsWith('image/')) {
-    handleErrorImage({ target: { files: [file] } });
-    const cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " ");
-    if ($('aiRawEnglish')) $('aiRawEnglish').value = `Detected from image (${cleanName}): Error E-01 Motor overload or sensor connection failure.`;
+    if ($('aiScanStatus')) {
+      $('aiScanStatus').textContent = 'ছবি স্ক্যানের জন্য প্রস্তুত (ডাটাবেজে সেভ হবে না)। কোড লিখে বাটন চাপুন।';
+    }
   }
 }
 
-function runAiExtractAndTranslate() {
-  const raw = $('aiRawEnglish') ? $('aiRawEnglish').value.trim() : '';
-  if (!raw) return showToast('Please upload a file/image or paste English error text first.', 'error');
-  const codeMatch = raw.match(/\b(E-?\d+|Err-?\d+|AL-?\d+)\b/i);
-  if ($('eCode') && !($('eCode').value)) $('eCode').value = codeMatch ? codeMatch[0].toUpperCase() : 'E-01';
-  if ($('eProblem') && !($('eProblem').value)) $('eProblem').value = raw.split(/[.:\n]/)[0].trim().substring(0, 80);
+async function runAiExtractAndTranslate() {
+  const aiCodeEl = $('aiTargetCode');
+  const errCodeEl = $('eCode');
+  const probEl = $('eProblem');
+  const solEl = $('eSolution');
+  const rawEl = $('aiRawEnglish');
+  const fileEl = $('aiFileInput');
+  const statusEl = $('aiScanStatus');
+  const btnEl = $('aiExtractBtn');
 
-  const dictionary = [
-    [/motor/gi, 'মোটর'], [/sensor/gi, 'সেন্সর'], [/needle/gi, 'নিডেল'], [/thread/gi, 'সুতা'],
-    [/trimmer/gi, 'ট্রিমার'], [/tension/gi, 'টেনশন'], [/belt/gi, 'বেল্ট'], [/cable|wiring|connection/gi, 'কেবল ও কানেকশন'],
-    [/power|voltage/gi, 'পাওয়ার সাপ্লাই ও ভোল্টেজ'], [/control box|pcb|board/gi, 'কন্ট্রোল বক্স বা সার্কিট বোর্ড'],
-    [/oil|lubrication/gi, 'অয়েল লেভেল'], [/pedal/gi, 'প্যাডেল'], [/check|inspect/gi, 'ভালোভাবে চেক করুন'],
-    [/clean/gi, 'পরিষ্কার করুন'], [/adjust|timing/gi, 'টাইমিং অ্যাডজাস্ট করুন'], [/replace/gi, 'পরিবর্তন করুন'],
-    [/reset/gi, 'রিসেট করুন'], [/error|failure|overload/gi, 'ত্রুটি দেখা দিয়েছে']
+  const requestedCode = (aiCodeEl?.value || errCodeEl?.value || '').trim();
+  let sourceText = (rawEl?.value || '').trim();
+  const scanFile = fileEl && fileEl.files ? fileEl.files[0] : null;
+
+  if (!scanFile && !sourceText) {
+    return showToast('দয়া করে ম্যানুয়াল/লিস্টের ছবি দিন অথবা ইংরেজি/বাংলা টেক্সট লিখুন বা ভয়েসে বলুন।', 'error');
+  }
+
+  if (btnEl) {
+    btnEl.disabled = true;
+    btnEl.textContent = '⏳ লোকাল স্ক্যান ও বাংলা অনুবাদ চলছে...';
+  }
+  if (statusEl) {
+    statusEl.textContent = 'API Key ছাড়াই ছবি/টেক্সট স্ক্যান করে বাংলা সমাধান তৈরি করা হচ্ছে...';
+  }
+
+  try {
+    if (!sourceText && scanFile && scanFile.type.startsWith('image/')) {
+      if (statusEl) {
+        statusEl.textContent = 'ছবি থেকে টেক্সট পড়া হচ্ছে (প্রথমবার কয়েক সেকেন্ড সময় লাগতে পারে)...';
+      }
+      if (!window.Tesseract) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+          script.onload = resolve;
+          script.onerror = () => reject(new Error('OCR লাইব্রেরি লোড করা যায়নি।'));
+          document.head.appendChild(script);
+        });
+      }
+      const result = await window.Tesseract.recognize(scanFile, 'eng');
+      sourceText = (result?.data?.text || '').trim();
+      if (rawEl && sourceText) rawEl.value = sourceText;
+    }
+
+    if (!sourceText) {
+      throw new Error('ছবি বা টেক্সট থেকে কোনো লেখা পড়া যায়নি। স্পষ্ট ছবি দিন বা টেক্সট পেস্ট করুন।');
+    }
+
+    const lines = sourceText
+      .split(/\r?\n/)
+      .map(l => l.trim())
+      .filter(Boolean);
+
+    const normalizeCode = (str) => (str || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const targetNorm = normalizeCode(requestedCode);
+
+    let matchedLine = '';
+    let detectedCode = requestedCode;
+
+    if (targetNorm) {
+      const idx = lines.findIndex(line => normalizeCode(line).includes(targetNorm));
+      if (idx !== -1) {
+        matchedLine = [lines[idx], lines[idx + 1] || ''].filter(Boolean).join(' - ');
+      }
+    }
+
+    if (!matchedLine) {
+      const codeMatch = sourceText.match(/\b(E[-_ ]?\d+|ERR[-_ ]?\d+|OH[-_ ]?\d+|ALM[-_ ]?\d+)\b/i);
+      if (codeMatch) {
+        detectedCode = codeMatch[1].toUpperCase().replace(/\s+/g, '');
+        const idx = lines.findIndex(line => line.toUpperCase().includes(codeMatch[1].toUpperCase()));
+        matchedLine = idx !== -1 ? [lines[idx], lines[idx + 1] || ''].filter(Boolean).join(' - ') : lines[0];
+      } else {
+        matchedLine = lines.slice(0, 2).join(' - ');
+      }
+    }
+
+    const cleanProblem = matchedLine.replace(/\s+/g, ' ').trim();
+    const banglaSolution = buildOfflineTechnicianSolution(cleanProblem, detectedCode || requestedCode);
+
+    const finalCode = (detectedCode || requestedCode || 'ERROR').trim();
+    if (errCodeEl) errCodeEl.value = finalCode;
+    if (aiCodeEl && requestedCode) aiCodeEl.value = requestedCode;
+    if (probEl) probEl.value = cleanProblem;
+    if (solEl) solEl.value = banglaSolution;
+
+    if (fileEl) fileEl.value = '';
+    if (statusEl) {
+      statusEl.textContent = '✅ API Key ছাড়াই ইংরেজি ও বাংলা বক্সে তথ্য বসে গেছে (ছবি সেভ হয়নি)। প্রয়োজনমতো এডিট করে সেভ করুন।';
+    }
+    showToast('ইংরেজি ও বাংলা সমাধান বক্সে বসে গেছে!', 'success');
+  } catch (err) {
+    const errMsg = err?.message || 'স্ক্যান করতে সমস্যা হয়েছে।';
+    console.error('Offline AI Scanner Error:', errMsg);
+    if (statusEl) {
+      statusEl.textContent = '❌ সমস্যা হয়েছে: ' + errMsg;
+    }
+    showToast('সমস্যা হয়েছে: ' + errMsg, 'error');
+  } finally {
+    if (btnEl) {
+      btnEl.disabled = false;
+      btnEl.textContent = '⚡ Extract & Translate to Bengali';
+    }
+  }
+}
+
+function buildOfflineTechnicianSolution(englishText, codeLabel) {
+  const lower = (englishText || '').toLowerCase();
+  const bnWords = [
+    ['error', 'এরর / ত্রুটি'],
+    ['motor', 'মোটর'],
+    ['drive', 'ড্রাইভ'],
+    ['sensor', 'সেন্সর'],
+    ['needle', 'নিডেল'],
+    ['position', 'পজিশন'],
+    ['thread', 'সুতা'],
+    ['trimmer', 'ট্রিমিং / কাটার'],
+    ['cutter', 'কাটার'],
+    ['tension', 'টেনশন'],
+    ['power', 'পাওয়ার'],
+    ['voltage', 'ভোল্টেজ'],
+    ['overheat', 'অতিরিক্ত গরম হওয়া'],
+    ['temperature', 'তাপমাত্রা'],
+    ['belt', 'বেল্ট'],
+    ['encoder', 'এনকোডার'],
+    ['solenoid', 'সোলেনয়েড'],
+    ['pedal', 'পেডেল / ট্রেডল'],
+    ['treadle', 'ট্রেডল'],
+    ['board', 'কন্ট্রোল বোর্ড / পিসিবি'],
+    ['communication', 'কমিউনিকেশন / সংযোগ'],
+    ['connector', 'কানেক্টর / জ্যাক'],
+    ['hook', 'হুক'],
+    ['bobbin', 'ববিন'],
+    ['presser', 'প্রেসার ফুট'],
+    ['lifter', 'লিফটার'],
+    ['check', 'চেক করুন'],
+    ['clean', 'পরিষ্কার করুন'],
+    ['adjust', 'অ্যাডজাস্ট / ঠিক করুন'],
+    ['replace', 'পরিবর্তন করুন'],
+    ['loose', 'লুজ / ঢিলা'],
+    ['jam', 'জ্যাম / আটকে যাওয়া'],
+    ['switch', 'সুইচ']
   ];
-  let translated = raw;
-  dictionary.forEach(([regex, bn]) => { translated = translated.replace(regex, bn); });
-  if ($('eSolution')) $('eSolution').value = `সমস্যা ও সমাধান: ${translated}`;
+
+  let translated = englishText;
+  for (const [eng, bn] of bnWords) {
+    const regex = new RegExp(`\\b${eng}\\b`, 'gi');
+    translated = translated.replace(regex, `${eng} (${bn})`);
+  }
+
+  const steps = [];
+  if (lower.includes('motor') || lower.includes('drive') || lower.includes('encoder')) {
+    steps.push('• মেশিনের Power OFF করে মোটর জ্যাক/কানেক্টর লুজ আছে কি না চেক করুন।');
+    steps.push('• ড্রাইভ বেল্ট, হ্যান্ড হুইল ও এনকোডার জ্যাম বা ধুলোয় আটকে আছে কি না দেখুন।');
+  }
+  if (lower.includes('sensor') || lower.includes('needle') || lower.includes('position')) {
+    steps.push('• নিডেল পজিশন সেন্সর ও ডিস্কের ধুলো/সুতা পরিষ্কার করুন এবং পজিশন অ্যাডজাস্ট করুন।');
+  }
+  if (lower.includes('thread') || lower.includes('trimmer') || lower.includes('cutter') || lower.includes('hook')) {
+    steps.push('• হুক, ববিন কেস ও থ্রেড কাটারের ভেতরে জমে থাকা সুতা ও ময়লা পরিষ্কার করুন।');
+  }
+  if (lower.includes('voltage') || lower.includes('power') || lower.includes('overheat') || lower.includes('board')) {
+    steps.push('• সাপ্লাই ভোল্টেজ ঠিক আছে কি না চেক করুন এবং কন্ট্রোল বক্স/ফ্যানের বাতাস চলাচল স্বাভাবিক রাখুন।');
+  }
+  if (steps.length === 0) {
+    steps.push('• মেশিন Power OFF করে সংশ্লিষ্ট কানেক্টর, সেন্সর ও মেকানিক্যাল পার্টস ভালোভাবে চেক করুন।');
+    steps.push('• প্রয়োজন অনুযায়ী পরিষ্কার বা অ্যাডজাস্ট করে মেশিন রিস্টার্ট দিয়ে পরীক্ষা করুন।');
+  }
+
+  return [
+    `কোড: ${codeLabel || 'N/A'}`,
+    `ইংরেজি তথ্য: ${englishText}`,
+    `সহজ বাংলা অর্থ: ${translated}`,
+    `করণীয় ধাপসমূহ:`,
+    ...steps
+  ].join('\n');
 }
 
 async function handleErrorImage(event) {
@@ -2417,7 +2823,7 @@ Object.assign(window, {
   toggleUserSelfEdit, previewDevPhoto, closeModal, handleAiFileUpload,
   runAiExtractAndTranslate, handleErrorImage, openUserEditModal, saveUserEdit, toggleBlockUser,
   deleteUser, addComment, openReplyModal, setTab, performLogout, handleAppIconMediaUpload,
-  hideToast, enablePushNotifications
+  hideToast, enablePushNotifications, startVoiceInput, speakTextInBangla, stopBanglaVoice
 });
 
 init();
